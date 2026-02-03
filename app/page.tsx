@@ -51,7 +51,6 @@ export default function LandingEventos() {
             Seleccioná el servicio que necesitás:
           </p>
           
-          {/* GRILLA DE CATEGORÍAS */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl mx-auto">
             {categorias.map((item) => (
               <button
@@ -68,24 +67,42 @@ export default function LandingEventos() {
             ))}
           </div>
 
-          {/* SERVICIOS ADICIONALES - Presentados como un "Plus" */}
-          <div className="mt-12 p-6 border border-yellow-500/30 rounded-2xl bg-white/5 backdrop-blur-sm max-w-3xl mx-auto">
-            <h3 className="text-yellow-500 font-bold tracking-[0.2em] mb-3 text-sm">SERVICIOS ADICIONALES</h3>
-            <p className="text-gray-300 text-lg md:text-xl font-bold uppercase tracking-wider">
-              CATERING • STAND DE GLITTER • CABINA 360 • FOTOGRAFÍA
-            </p>
+          {/* SERVICIOS ADICIONALES - Botón de Consulta Directa */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <button 
+              onClick={() => seleccionar("SERVICIOS ADICIONALES")}
+              className={`w-full p-6 border-2 border-dashed rounded-2xl transition-all duration-300 group ${
+                evento === "SERVICIOS ADICIONALES" 
+                ? 'bg-yellow-500 text-black border-yellow-500' 
+                : 'border-yellow-500/40 hover:border-yellow-500 bg-white/5 backdrop-blur-sm'
+              }`}
+            >
+              <h3 className={`font-bold tracking-[0.2em] mb-3 text-sm ${evento === "SERVICIOS ADICIONALES" ? 'text-black' : 'text-yellow-500'}`}>
+                SERVICIOS ADICIONALES
+              </h3>
+              <p className={`text-lg md:text-xl font-bold uppercase tracking-wider mb-4 ${evento === "SERVICIOS ADICIONALES" ? 'text-black' : 'text-gray-300'}`}>
+                CATERING • STAND DE GLITTER • CABINA 360 • FOTOGRAFÍA
+              </p>
+              <span className={`inline-block px-8 py-2 rounded-full font-black uppercase tracking-widest transition-colors ${
+                evento === "SERVICIOS ADICIONALES" ? 'bg-black text-white' : 'bg-yellow-500 text-black group-hover:bg-white'
+              }`}>
+                CONSULTAR AHORA
+              </span>
+            </button>
           </div>
         </div>
       </section>
 
       {/* FORM SECTION */}
       {evento && (
-        <section id="contacto" className="py-20 bg-white text-black px-6 animate-fade-in-up">
+        <section id="contacto" className="py-24 bg-white text-black px-6 animate-fade-in-up">
           <div className="max-w-md mx-auto">
             <div className="text-center mb-10">
               <h2 className="font-titulo text-4xl md:text-5xl mb-2 uppercase italic leading-none">¡Excelente!</h2>
               <p className="text-gray-600 font-bold uppercase tracking-widest text-sm">
-                Interés en: {evento}
+                {evento === "SERVICIOS ADICIONALES" 
+                  ? "Contanos qué adicionales te interesan" 
+                  : `Interés en: ${evento}`}
               </p>
             </div>
 
@@ -94,7 +111,8 @@ export default function LandingEventos() {
                 <label className="block text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">Nombre completo</label>
                 <input 
                   type="text" 
-                  placeholder="Ej: Juan Alberto" 
+                  name="nombre"
+                  placeholder="Ej: Leandro Franco" 
                   className="w-full border-b-2 border-gray-200 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
                   required 
                 />
@@ -103,13 +121,14 @@ export default function LandingEventos() {
                 <label className="block text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">WhatsApp</label>
                 <input 
                   type="tel" 
+                  name="whatsapp"
                   placeholder="Ej: 54911..." 
                   className="w-full border-b-2 border-gray-200 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
                   required 
                 />
               </div>
               
-              <input type="hidden" value={evento} />
+              <input type="hidden" name="evento" value={evento} />
 
               <button 
                 type="submit" 
@@ -118,10 +137,6 @@ export default function LandingEventos() {
                 AGENDAR LLAMADA
               </button>
             </form>
-            
-            <p className="mt-8 text-center text-[10px] text-gray-400 uppercase tracking-widest font-bold">
-              También podés sumar Catering, Cabina 360 y más.
-            </p>
           </div>
         </section>
       )}
@@ -137,7 +152,6 @@ export default function LandingEventos() {
         }
         .font-titulo { font-family: var(--font-titulo); }
         .font-cuerpo { font-family: var(--font-cuerpo); }
-        
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
