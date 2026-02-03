@@ -1,65 +1,96 @@
-import Image from "next/image";
+'use client';
+import React, { useState } from 'react';
 
-export default function Home() {
+export default function LandingEventos() {
+  // Definimos que el estado puede ser un string
+  const [evento, setEvento] = useState<string>("");
+
+  // Especificamos el tipo string para evitar el error de 'any' implícito
+  const seleccionar = (tipo: string): void => {
+    setEvento(tipo);
+    const element = document.getElementById('contacto');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-black text-white selection:bg-yellow-500 font-sans">
+      
+      {/* HERO SECTION - Ajustada para el archivo .avif con espacio en el nombre */}
+      <section 
+        className="relative h-screen flex flex-col items-center justify-center bg-cover bg-center px-4"
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/FOTO%20FONDO.avif')` 
+        }}
+      >
+        <div className="text-center">
+          <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter uppercase">
+            Hacemos realidad tu <br/>
+            <span className="text-yellow-500 italic">evento soñado</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-lg text-gray-300 mb-10 max-w-xl mx-auto">
+            Seleccioná el tipo de evento y nosotros nos encargamos de toda la organización.
           </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
+            {['CUMPLEAÑOS', 'DESPEDIDA DE SOLTERO', 'FIN DE AÑO'].map((item) => (
+              <button
+                key={item}
+                onClick={() => seleccionar(item)}
+                className="py-5 px-4 border-2 border-yellow-500 font-bold rounded-xl hover:bg-yellow-500 hover:text-black transition-all duration-300"
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* FORM SECTION */}
+      <section id="contacto" className="py-24 bg-white text-black px-6">
+        <div className="max-w-md mx-auto">
+          <h2 className="text-4xl font-black mb-2 text-center">¡Hablemos!</h2>
+          <p className="text-center text-gray-600 mb-10">
+            {evento ? `Contanos sobre tu ${evento}` : "Completá tus datos para una llamada"}
+          </p>
+
+          <form className="space-y-6">
+            <div>
+              <label className="block text-xs font-bold mb-1 text-gray-400">NOMBRE COMPLETO</label>
+              <input 
+                type="text" 
+                placeholder="Ej: Leandro Franco" 
+                className="w-full border-b-2 border-gray-300 p-3 focus:border-yellow-500 outline-none transition-colors" 
+                required 
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold mb-1 text-gray-400">WHATSAPP</label>
+              <input 
+                type="tel" 
+                placeholder="Ej: 5491138102208" 
+                className="w-full border-b-2 border-gray-300 p-3 focus:border-yellow-500 outline-none transition-colors" 
+                required 
+              />
+            </div>
+            
+            {/* Input oculto para enviar el tipo de evento seleccionado */}
+            <input type="hidden" value={evento} />
+
+            <button 
+              type="submit" 
+              className="w-full bg-black text-white py-5 rounded-full font-bold text-lg hover:bg-yellow-500 hover:text-black transition-colors shadow-2xl"
+            >
+              AGENDAR LLAMADA
+            </button>
+          </form>
         </div>
-      </main>
+      </section>
+
+      <footer className="py-10 text-center text-gray-500 text-sm border-t border-gray-800 bg-black">
+        © 2026 - Expertos en Eventos Soñados
+      </footer>
     </div>
   );
 }
