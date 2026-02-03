@@ -18,7 +18,7 @@ export default function LandingEventos() {
   const [enviado, setEnviado] = useState(false);
 
   // REEMPLAZA ESTO CON TU URL DE MAKE.COM
-  const WEBHOOK_URL = "https://hook.us2.make.com/h4cdq5iw9iiuk2xwulp9zpn9rumku4ye";
+  const WEBHOOK_URL = "https://hook.us2.make.com/r30c8wlriemn1hypqgu5v9o7c1ja53zh";
 
   const seleccionar = (tipo: string): void => {
     setEvento(tipo);
