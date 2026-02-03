@@ -93,7 +93,7 @@ export default function LandingEventos() {
                 <label className="block text-xs mb-1 text-gray-400 tracking-widest uppercase">Nombre completo</label>
                 <input 
                   type="text" 
-                  placeholder="Ej: Leandro Franco" 
+                  placeholder="Ej: Juan Alberto" 
                   className="w-full border-b-2 border-gray-300 p-3 focus:border-yellow-500 outline-none transition-colors" 
                   required 
                 />
