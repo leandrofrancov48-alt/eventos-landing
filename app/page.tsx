@@ -2,13 +2,10 @@
 import React, { useState } from 'react';
 
 export default function LandingEventos() {
-  // Estado para controlar qué evento se seleccionó
   const [evento, setEvento] = useState<string>("");
 
-  // Función para seleccionar y mostrar el formulario
   const seleccionar = (tipo: string): void => {
     setEvento(tipo);
-    // Esperamos un milisegundo para que el DOM se actualice y luego scrolleamos
     setTimeout(() => {
       const element = document.getElementById('contacto');
       if (element) {
@@ -36,8 +33,8 @@ export default function LandingEventos() {
             Seleccioná el tipo de evento y nosotros nos encargamos de toda la organización.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
-            {['CUMPLEAÑOS', 'DESPEDIDA DE SOLTERO', 'FIN DE AÑO'].map((item) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-5xl">
+            {['CUMPLEAÑOS', 'DESPEDIDA DE SOLTERO', 'FIN DE AÑO', 'ARMA TU PROPIA FIESTA'].map((item) => (
               <button
                 key={item}
                 onClick={() => seleccionar(item)}
@@ -45,7 +42,7 @@ export default function LandingEventos() {
                   evento === item 
                   ? 'bg-yellow-500 text-black border-yellow-500' 
                   : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
-                }`}
+                } ${item === 'ARMA TU PROPIA FIESTA' ? 'lg:scale-105 border-dashed' : ''}`}
               >
                 {item}
               </button>
@@ -54,13 +51,15 @@ export default function LandingEventos() {
         </div>
       </section>
 
-      {/* FORM SECTION - Solo se renderiza si hay un evento seleccionado */}
+      {/* FORM SECTION */}
       {evento && (
         <section id="contacto" className="py-24 bg-white text-black px-6 animate-fade-in-up">
           <div className="max-w-md mx-auto">
-            <h2 className="text-4xl font-black mb-2 text-center uppercase italic">¡Excelente elección!</h2>
+            <h2 className="text-4xl font-black mb-2 text-center uppercase italic">¡Manos a la obra!</h2>
             <p className="text-center text-gray-600 mb-10">
-              Contanos sobre tu <span className="font-bold text-black uppercase">{evento}</span> para agendar la llamada.
+              {evento === 'ARMA TU PROPIA FIESTA' 
+                ? "Contanos tu idea y nosotros la hacemos realidad." 
+                : `Contanos sobre tu ${evento} para agendar la llamada.`}
             </p>
 
             <form className="space-y-6">
@@ -100,7 +99,6 @@ export default function LandingEventos() {
         © 2026 - Expertos en Eventos Soñados
       </footer>
 
-      {/* Estilo simple para la animación de aparición */}
       <style jsx global>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }
