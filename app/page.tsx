@@ -31,27 +31,28 @@ export default function LandingEventos() {
       
       {/* HERO SECTION */}
       <section 
-        className="relative h-screen flex flex-col items-center justify-center bg-cover bg-center px-4"
+        className="relative h-screen flex flex-col items-center justify-center bg-cover bg-center px-6 pt-10"
         style={{ 
           backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/FOTO%20FONDO.avif')` 
         }}
       >
         <div className="text-center w-full max-w-5xl">
-          <h1 className="font-titulo text-6xl md:text-8xl mb-4 tracking-tighter uppercase">
+          {/* Título ajustado para que no se corte en mobile */}
+          <h1 className="font-titulo text-5xl md:text-7xl mb-4 tracking-tighter uppercase leading-[1.1] pt-4">
             Hacemos realidad tu <br/>
             <span className="text-yellow-500 italic">evento soñado</span>
           </h1>
-          <p className="text-lg text-gray-300 mb-10 max-w-xl mx-auto">
+          <p className="text-base md:text-lg text-gray-300 mb-8 max-w-xl mx-auto">
             Seleccioná el tipo de evento y nosotros nos encargamos de toda la organización.
           </p>
           
-          {/* GRILLA DE BOTONES: Textos agrandados y con tracking para legibilidad */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+          {/* GRILLA DE BOTONES: Tamaños moderados para legibilidad y mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full max-w-4xl mx-auto">
             {['CUMPLEAÑOS', 'DESPEDIDA DE SOLTERO', 'FIN DE AÑO'].map((item) => (
               <button
                 key={item}
                 onClick={() => seleccionar(item)}
-                className={`py-6 px-4 border-2 rounded-xl transition-all duration-300 text-3xl tracking-[0.1em] leading-tight uppercase font-bold ${
+                className={`py-4 px-3 border-2 rounded-xl transition-all duration-300 text-xl md:text-2xl tracking-wide leading-tight uppercase font-bold ${
                   evento === item 
                   ? 'bg-yellow-500 text-black border-yellow-500' 
                   : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
@@ -64,7 +65,7 @@ export default function LandingEventos() {
             <div className="md:col-start-2">
               <button
                 onClick={() => seleccionar('ARMA TU PROPIA FIESTA')}
-                className={`w-full py-6 px-4 border-2 rounded-xl transition-all duration-300 border-dashed text-3xl tracking-[0.1em] leading-tight uppercase font-bold ${
+                className={`w-full py-4 px-3 border-2 rounded-xl transition-all duration-300 border-dashed text-xl md:text-2xl tracking-wide leading-tight uppercase font-bold ${
                   evento === 'ARMA TU PROPIA FIESTA' 
                   ? 'bg-yellow-500 text-black border-yellow-500' 
                   : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
@@ -77,33 +78,33 @@ export default function LandingEventos() {
         </div>
       </section>
 
-      {/* FORM SECTION - Tamaños originales restablecidos */}
+      {/* FORM SECTION */}
       {evento && (
-        <section id="contacto" className="py-24 bg-white text-black px-6 animate-fade-in-up">
+        <section id="contacto" className="py-20 bg-white text-black px-6 animate-fade-in-up">
           <div className="max-w-md mx-auto">
-            <h2 className="font-titulo text-5xl mb-2 text-center uppercase italic">¡Excelente!</h2>
-            <p className="text-center text-gray-600 mb-10">
+            <h2 className="font-titulo text-4xl md:text-5xl mb-2 text-center uppercase italic">¡Excelente!</h2>
+            <p className="text-center text-gray-600 mb-8 text-sm md:text-base">
               {evento === 'ARMA TU PROPIA FIESTA' 
                 ? "Contanos tu idea y nosotros la hacemos realidad." 
                 : `Contanos sobre tu ${evento} para agendar la llamada.`}
             </p>
 
-            <form className="space-y-6 font-bold">
+            <form className="space-y-5 font-bold">
               <div>
-                <label className="block text-xs mb-1 text-gray-400 tracking-widest uppercase">Nombre completo</label>
+                <label className="block text-[10px] mb-1 text-gray-400 tracking-widest uppercase text-left">Nombre completo</label>
                 <input 
                   type="text" 
                   placeholder="Ej: Leandro Franco" 
-                  className="w-full border-b-2 border-gray-300 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
+                  className="w-full border-b border-gray-300 p-2 focus:border-yellow-500 outline-none transition-colors text-base font-normal" 
                   required 
                 />
               </div>
               <div>
-                <label className="block text-xs mb-1 text-gray-400 tracking-widest uppercase">WhatsApp</label>
+                <label className="block text-[10px] mb-1 text-gray-400 tracking-widest uppercase text-left">WhatsApp</label>
                 <input 
                   type="tel" 
                   placeholder="Ej: 5491138102208" 
-                  className="w-full border-b-2 border-gray-300 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
+                  className="w-full border-b border-gray-300 p-2 focus:border-yellow-500 outline-none transition-colors text-base font-normal" 
                   required 
                 />
               </div>
@@ -112,7 +113,7 @@ export default function LandingEventos() {
 
               <button 
                 type="submit" 
-                className="w-full bg-black text-white py-5 rounded-full text-xl hover:bg-yellow-500 hover:text-black transition-all shadow-2xl uppercase tracking-wider"
+                className="w-full bg-black text-white py-4 rounded-full text-lg hover:bg-yellow-500 hover:text-black transition-all uppercase tracking-wider"
               >
                 AGENDAR LLAMADA
               </button>
@@ -121,7 +122,7 @@ export default function LandingEventos() {
         </section>
       )}
 
-      <footer className="py-10 text-center text-gray-500 text-sm border-t border-gray-800 bg-black">
+      <footer className="py-8 text-center text-gray-500 text-xs border-t border-gray-800 bg-black">
         © 2026 - Expertos en Eventos Soñados
       </footer>
 
