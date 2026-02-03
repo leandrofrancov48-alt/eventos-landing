@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import localFont from 'next/font/local';
 
-// Configuración de las fuentes locales
 const fontTitulo = localFont({
   src: './fonts/YellowBalloon200-Regular.ttf',
   variable: '--font-titulo',
@@ -26,54 +25,55 @@ export default function LandingEventos() {
     }, 100);
   };
 
+  const categorias = [
+    "EVENTOS PRIVADOS",
+    "CUMPLEAÑOS (15/30/80 INV.)",
+    "SOCIAL - CORPORATIVOS",
+    "DJ - SONIDO - ILUMINACIÓN"
+  ];
+
   return (
     <div className={`${fontCuerpo.variable} ${fontTitulo.variable} min-h-screen bg-black text-white selection:bg-yellow-500 font-cuerpo`}>
       
       {/* HERO SECTION */}
       <section 
-        className="relative h-screen flex flex-col items-center justify-center bg-cover bg-center px-6 pt-10"
+        className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center px-6 py-20"
         style={{ 
           backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/FOTO%20FONDO.avif')` 
         }}
       >
         <div className="text-center w-full max-w-5xl">
-          {/* Título ajustado para que no se corte en mobile */}
           <h1 className="font-titulo text-5xl md:text-7xl mb-4 tracking-tighter uppercase leading-[1.1] pt-4">
             Hacemos realidad tu <br/>
             <span className="text-yellow-500 italic">evento soñado</span>
           </h1>
-          <p className="text-base md:text-lg text-gray-300 mb-8 max-w-xl mx-auto">
-            Seleccioná el tipo de evento y nosotros nos encargamos de toda la organización.
+          <p className="text-base md:text-lg text-gray-300 mb-10 max-w-xl mx-auto uppercase tracking-widest font-bold">
+            Seleccioná el servicio que necesitás:
           </p>
           
-          {/* GRILLA DE BOTONES: Tamaños moderados para legibilidad y mobile */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full max-w-4xl mx-auto">
-            {['CUMPLEAÑOS', 'DESPEDIDA DE SOLTERO', 'FIN DE AÑO'].map((item) => (
+          {/* GRILLA DE CATEGORÍAS */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl mx-auto">
+            {categorias.map((item) => (
               <button
                 key={item}
                 onClick={() => seleccionar(item)}
-                className={`py-4 px-3 border-2 rounded-xl transition-all duration-300 text-xl md:text-2xl tracking-wide leading-tight uppercase font-bold ${
+                className={`py-5 px-4 border-2 rounded-xl transition-all duration-300 text-xl md:text-2xl tracking-wide leading-tight uppercase font-bold ${
                   evento === item 
-                  ? 'bg-yellow-500 text-black border-yellow-500' 
+                  ? 'bg-yellow-500 text-black border-yellow-500 scale-105' 
                   : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
                 }`}
               >
                 {item}
               </button>
             ))}
-            
-            <div className="md:col-start-2">
-              <button
-                onClick={() => seleccionar('ARMA TU PROPIA FIESTA')}
-                className={`w-full py-4 px-3 border-2 rounded-xl transition-all duration-300 border-dashed text-xl md:text-2xl tracking-wide leading-tight uppercase font-bold ${
-                  evento === 'ARMA TU PROPIA FIESTA' 
-                  ? 'bg-yellow-500 text-black border-yellow-500' 
-                  : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
-                }`}
-              >
-                ARMA TU PROPIA FIESTA
-              </button>
-            </div>
+          </div>
+
+          {/* SERVICIOS ADICIONALES - Presentados como un "Plus" */}
+          <div className="mt-12 p-6 border border-yellow-500/30 rounded-2xl bg-white/5 backdrop-blur-sm max-w-3xl mx-auto">
+            <h3 className="text-yellow-500 font-bold tracking-[0.2em] mb-3 text-sm">SERVICIOS ADICIONALES</h3>
+            <p className="text-gray-300 text-lg md:text-xl font-bold uppercase tracking-wider">
+              CATERING • STAND DE GLITTER • CABINA 360 • FOTOGRAFÍA
+            </p>
           </div>
         </div>
       </section>
@@ -82,29 +82,29 @@ export default function LandingEventos() {
       {evento && (
         <section id="contacto" className="py-20 bg-white text-black px-6 animate-fade-in-up">
           <div className="max-w-md mx-auto">
-            <h2 className="font-titulo text-4xl md:text-5xl mb-2 text-center uppercase italic">¡Excelente!</h2>
-            <p className="text-center text-gray-600 mb-8 text-sm md:text-base">
-              {evento === 'ARMA TU PROPIA FIESTA' 
-                ? "Contanos tu idea y nosotros la hacemos realidad." 
-                : `Contanos sobre tu ${evento} para agendar la llamada.`}
-            </p>
+            <div className="text-center mb-10">
+              <h2 className="font-titulo text-4xl md:text-5xl mb-2 uppercase italic leading-none">¡Excelente!</h2>
+              <p className="text-gray-600 font-bold uppercase tracking-widest text-sm">
+                Interés en: {evento}
+              </p>
+            </div>
 
-            <form className="space-y-5 font-bold">
-              <div>
-                <label className="block text-[10px] mb-1 text-gray-400 tracking-widest uppercase text-left">Nombre completo</label>
+            <form className="space-y-6">
+              <div className="space-y-1">
+                <label className="block text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">Nombre completo</label>
                 <input 
                   type="text" 
                   placeholder="Ej: Leandro Franco" 
-                  className="w-full border-b border-gray-300 p-2 focus:border-yellow-500 outline-none transition-colors text-base font-normal" 
+                  className="w-full border-b-2 border-gray-200 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
                   required 
                 />
               </div>
-              <div>
-                <label className="block text-[10px] mb-1 text-gray-400 tracking-widest uppercase text-left">WhatsApp</label>
+              <div className="space-y-1">
+                <label className="block text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">WhatsApp</label>
                 <input 
                   type="tel" 
-                  placeholder="Ej: 5491138102208" 
-                  className="w-full border-b border-gray-300 p-2 focus:border-yellow-500 outline-none transition-colors text-base font-normal" 
+                  placeholder="Ej: 54911..." 
+                  className="w-full border-b-2 border-gray-200 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
                   required 
                 />
               </div>
@@ -113,17 +113,21 @@ export default function LandingEventos() {
 
               <button 
                 type="submit" 
-                className="w-full bg-black text-white py-4 rounded-full text-lg hover:bg-yellow-500 hover:text-black transition-all uppercase tracking-wider"
+                className="w-full bg-black text-white py-5 rounded-full text-xl font-bold hover:bg-yellow-500 hover:text-black transition-all uppercase tracking-widest shadow-xl"
               >
                 AGENDAR LLAMADA
               </button>
             </form>
+            
+            <p className="mt-8 text-center text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+              También podés sumar Catering, Cabina 360 y más.
+            </p>
           </div>
         </section>
       )}
 
-      <footer className="py-8 text-center text-gray-500 text-xs border-t border-gray-800 bg-black">
-        © 2026 - Expertos en Eventos Soñados
+      <footer className="py-8 text-center text-gray-500 text-xs border-t border-gray-800 bg-black uppercase tracking-[0.2em]">
+        © 2026 - EVENTOS SOÑADOS
       </footer>
 
       <style jsx global>{`
@@ -135,7 +139,7 @@ export default function LandingEventos() {
         .font-cuerpo { font-family: var(--font-cuerpo); }
         
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
+          from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in-up {
