@@ -36,24 +36,24 @@ export default function LandingEventos() {
           backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/FOTO%20FONDO.avif')` 
         }}
       >
-        <div className="text-center w-full max-w-6xl">
-          <h1 className="font-titulo text-7xl md:text-9xl mb-6 tracking-tighter uppercase leading-none">
+        <div className="text-center w-full max-w-5xl">
+          <h1 className="font-titulo text-6xl md:text-8xl mb-4 tracking-tighter uppercase">
             Hacemos realidad tu <br/>
             <span className="text-yellow-500 italic">evento soñado</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto tracking-wide">
+          <p className="text-lg text-gray-300 mb-10 max-w-xl mx-auto">
             Seleccioná el tipo de evento y nosotros nos encargamos de toda la organización.
           </p>
           
-          {/* GRILLA DE BOTONES: 3 ARRIBA, 1 ABAJO AL MEDIO */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full uppercase">
+          {/* GRILLA DE BOTONES: Textos agrandados y con tracking para legibilidad */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
             {['CUMPLEAÑOS', 'DESPEDIDA DE SOLTERO', 'FIN DE AÑO'].map((item) => (
               <button
                 key={item}
                 onClick={() => seleccionar(item)}
-                className={`py-8 px-4 border-2 rounded-2xl transition-all duration-300 text-2xl md:text-3xl tracking-widest leading-tight ${
+                className={`py-6 px-4 border-2 rounded-xl transition-all duration-300 text-3xl tracking-[0.1em] leading-tight uppercase font-bold ${
                   evento === item 
-                  ? 'bg-yellow-500 text-black border-yellow-500 shadow-[0_0_20px_rgba(234,179,8,0.4)]' 
+                  ? 'bg-yellow-500 text-black border-yellow-500' 
                   : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
                 }`}
               >
@@ -64,9 +64,9 @@ export default function LandingEventos() {
             <div className="md:col-start-2">
               <button
                 onClick={() => seleccionar('ARMA TU PROPIA FIESTA')}
-                className={`w-full py-8 px-4 border-2 rounded-2xl transition-all duration-300 border-dashed text-2xl md:text-3xl tracking-widest leading-tight ${
+                className={`w-full py-6 px-4 border-2 rounded-xl transition-all duration-300 border-dashed text-3xl tracking-[0.1em] leading-tight uppercase font-bold ${
                   evento === 'ARMA TU PROPIA FIESTA' 
-                  ? 'bg-yellow-500 text-black border-yellow-500 shadow-[0_0_20px_rgba(234,179,8,0.4)]' 
+                  ? 'bg-yellow-500 text-black border-yellow-500' 
                   : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
                 }`}
               >
@@ -77,33 +77,33 @@ export default function LandingEventos() {
         </div>
       </section>
 
-      {/* FORM SECTION */}
+      {/* FORM SECTION - Tamaños originales restablecidos */}
       {evento && (
         <section id="contacto" className="py-24 bg-white text-black px-6 animate-fade-in-up">
-          <div className="max-w-xl mx-auto">
-            <h2 className="font-titulo text-6xl md:text-7xl mb-4 text-center uppercase italic leading-none">¡Excelente!</h2>
-            <p className="text-center text-gray-600 mb-12 text-2xl tracking-wide">
+          <div className="max-w-md mx-auto">
+            <h2 className="font-titulo text-5xl mb-2 text-center uppercase italic">¡Excelente!</h2>
+            <p className="text-center text-gray-600 mb-10">
               {evento === 'ARMA TU PROPIA FIESTA' 
                 ? "Contanos tu idea y nosotros la hacemos realidad." 
                 : `Contanos sobre tu ${evento} para agendar la llamada.`}
             </p>
 
-            <form className="space-y-8">
+            <form className="space-y-6 font-bold">
               <div>
-                <label className="block text-sm font-bold mb-2 text-gray-400 tracking-[0.2em] uppercase">Nombre completo</label>
+                <label className="block text-xs mb-1 text-gray-400 tracking-widest uppercase">Nombre completo</label>
                 <input 
                   type="text" 
                   placeholder="Ej: Leandro Franco" 
-                  className="w-full border-b-4 border-gray-200 p-4 text-2xl focus:border-yellow-500 outline-none transition-colors font-bold" 
+                  className="w-full border-b-2 border-gray-300 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
                   required 
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold mb-2 text-gray-400 tracking-[0.2em] uppercase">WhatsApp</label>
+                <label className="block text-xs mb-1 text-gray-400 tracking-widest uppercase">WhatsApp</label>
                 <input 
                   type="tel" 
                   placeholder="Ej: 5491138102208" 
-                  className="w-full border-b-4 border-gray-200 p-4 text-2xl focus:border-yellow-500 outline-none transition-colors font-bold" 
+                  className="w-full border-b-2 border-gray-300 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" 
                   required 
                 />
               </div>
@@ -112,7 +112,7 @@ export default function LandingEventos() {
 
               <button 
                 type="submit" 
-                className="w-full bg-black text-white py-6 rounded-full text-3xl font-bold hover:bg-yellow-500 hover:text-black transition-all shadow-[0_10px_30px_rgba(0,0,0,0.2)] tracking-widest uppercase"
+                className="w-full bg-black text-white py-5 rounded-full text-xl hover:bg-yellow-500 hover:text-black transition-all shadow-2xl uppercase tracking-wider"
               >
                 AGENDAR LLAMADA
               </button>
@@ -134,11 +134,11 @@ export default function LandingEventos() {
         .font-cuerpo { font-family: var(--font-cuerpo); }
         
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(40px); }
+          from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in-up {
-          animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          animation: fadeInUp 0.6s ease-out forwards;
         }
       `}</style>
     </div>
