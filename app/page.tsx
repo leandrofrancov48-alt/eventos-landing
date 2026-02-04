@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import localFont from 'next/font/local';
 import Image from 'next/image';
 
-// Carga de fuentes
 const fontTitulo = localFont({
   src: './fonts/YellowBalloon200-Regular.ttf',
   display: 'swap',
@@ -64,7 +63,7 @@ export default function LandingPandaDJ() {
   };
 
   return (
-    <div className={`${fontCuerpo.className} h-screen w-full bg-[#F2EFE9] text-black overflow-hidden flex flex-col justify-between`}>
+    <div className={`${fontCuerpo.className} h-screen w-full bg-[#F2EFE9] text-black overflow-hidden flex flex-col`}>
       
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
@@ -75,44 +74,44 @@ export default function LandingPandaDJ() {
         .animate-bounce-slow { animation: bounceSlow 3s infinite ease-in-out; }
       `}} />
 
-      {/* HEADER: Un poco más grande en desktop */}
-      <nav className="w-full px-6 py-6 flex justify-between items-start z-40">
-        <div className="bg-white border-[3px] border-black px-4 py-2 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-[-2deg]">
-          <div className="relative h-8 w-24 md:h-12 md:w-32 lg:h-14 lg:w-40">
+      {/* HEADER: Compacto para dejar aire al contenido */}
+      <nav className="w-full px-6 py-4 flex justify-between items-start z-40 shrink-0">
+        <div className="bg-white border-[2px] border-black px-3 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg]">
+          <div className="relative h-8 w-24 md:h-10 md:w-28">
             <Image src="/PANDA-DJ-LOGO-NEGRO-2.png" alt="Panda DJ Logo" fill className="object-contain" />
           </div>
         </div>
         
-        <div className="relative h-10 w-32 md:h-14 md:w-44 lg:h-16 lg:w-52 rotate-[2deg] drop-shadow-[3px_3px_0px_rgba(255,255,255,1)]">
+        <div className="relative h-8 w-28 md:h-10 md:w-36 rotate-[1deg] drop-shadow-[2px_2px_0px_rgba(255,255,255,1)]">
            <Image src="/DEBO SEGATTI LOGO NEGRO PNG.png" alt="Debo Segatti" fill className="object-contain" />
         </div>
       </nav>
 
-      {/* CONTENIDO CENTRAL: Más grande y expandido */}
-      <main className="flex-grow flex flex-col items-center justify-center px-4 pt-4 pb-8">
+      {/* CONTENIDO CENTRAL: justify-evenly reparte el espacio automáticamente */}
+      <main className="flex-grow flex flex-col items-center justify-center px-4 w-full max-w-5xl mx-auto gap-4 md:gap-6">
         
-        {/* LOGO CENTRAL MUCHO MÁS GRANDE */}
-        <div className="mb-4 relative h-36 w-36 md:h-56 md:w-56 lg:h-64 lg:w-64 xl:h-72 xl:w-72 animate-bounce-slow hover:scale-105 transition-transform duration-300">
-           <div className="absolute inset-0 bg-black rounded-full translate-x-2 translate-y-2 opacity-10"></div>
-           <Image src="/PANDA-DJ-LOGO-NEGRO (1).png" alt="Panda Face" fill className="object-contain drop-shadow-lg" />
+        {/* LOGO: Tamaño mediano (Ni estampilla, ni poster) */}
+        <div className="relative h-28 w-28 md:h-40 md:w-40 animate-bounce-slow hover:scale-105 transition-transform duration-300 shrink-0">
+           <div className="absolute inset-0 bg-black rounded-full translate-x-1 translate-y-1 opacity-10"></div>
+           <Image src="/PANDA-DJ-LOGO-NEGRO (1).png" alt="Panda Face" fill className="object-contain drop-shadow-md" />
         </div>
         
-        {/* TITULO GIGANTE */}
-        <h1 className={`${fontTitulo.className} text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] mb-6 uppercase leading-[0.85] tracking-tighter text-black text-center drop-shadow-[4px_4px_0px_rgba(255,255,255,1)]`}>
+        {/* TITULO: Grande pero controlado (text-7xl max) */}
+        <h1 className={`${fontTitulo.className} text-5xl md:text-7xl uppercase leading-[0.9] tracking-tighter text-black text-center drop-shadow-[3px_3px_0px_rgba(255,255,255,1)] shrink-0`}>
           Hacemos <br/>
-          <span className="relative inline-block px-4 lg:px-6 bg-black text-[#F2EFE9] -rotate-1 transform border-[3px] border-black shadow-[5px_5px_0px_0px_#9CA3AF]">
+          <span className="relative inline-block px-4 bg-black text-[#F2EFE9] -rotate-1 transform border-[2px] border-black shadow-[4px_4px_0px_0px_#9CA3AF]">
             Realidad
           </span> <br/>
           Tu Evento
         </h1>
         
-        {/* PILL MÁS GRANDE */}
-        <p className="text-black font-bold uppercase tracking-[0.25em] mb-10 text-xs md:text-base lg:text-xl bg-white border-[3px] border-black px-6 py-2 md:px-8 md:py-3 rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-1">
+        {/* PILL */}
+        <p className="text-black font-bold uppercase tracking-[0.2em] text-[10px] md:text-sm bg-white border-[2px] border-black px-5 py-1 rounded-full shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-1 shrink-0">
           Experiencia Panda DJ
         </p>
 
-        {/* BOTONES MÁS CHUNKIES Y SEPARADOS */}
-        <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8 w-full max-w-xl md:max-w-3xl lg:max-w-4xl mb-8">
+        {/* BOTONES: Padding generoso pero sin exagerar */}
+        <div className="grid grid-cols-2 gap-3 md:gap-5 w-full max-w-2xl shrink-0">
           {[
             { label: "PRIVADOS", rotate: "-rotate-1" },
             { label: "CUMPLEAÑOS", rotate: "rotate-1" },
@@ -124,11 +123,11 @@ export default function LandingPandaDJ() {
               onClick={() => abrirModal(item.label)}
               className={`
                 ${item.rotate}
-                bg-white text-black text-sm md:text-2xl lg:text-3xl font-black uppercase 
-                py-4 px-2 md:py-6 lg:py-8
-                border-[3px] md:border-[4px] border-black rounded-2xl
-                shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]
-                hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]
+                bg-white text-black text-sm md:text-lg font-bold uppercase 
+                py-3 px-2 md:py-5
+                border-[2px] border-black rounded-xl
+                shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]
+                hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]
                 transition-all duration-200
                 flex items-center justify-center text-center leading-none
               `}
@@ -138,21 +137,22 @@ export default function LandingPandaDJ() {
           ))}
         </div>
 
+        {/* LINK: Pegadito abajo */}
         <button 
           onClick={() => abrirModal("SERVICIOS ADICIONALES")}
-          className="font-black uppercase text-xs md:text-base border-b-[3px] border-black pb-1 hover:text-gray-600 transition-colors flex items-center gap-2"
+          className="font-black uppercase text-[10px] md:text-xs border-b-[2px] border-black pb-0.5 hover:text-gray-600 transition-colors flex items-center gap-1 shrink-0 mt-2"
         >
-          <span className="text-xl md:text-2xl">➔</span> Ver Servicios Adicionales
+          <span className="text-base md:text-lg">➔</span> Ver Servicios Adicionales
         </button>
       </main>
 
-      {/* FOOTER MÁS VISIBLE */}
-      <footer className="w-full py-6 text-center">
-        <p className={`${fontTitulo.className} text-3xl md:text-4xl text-black/40 mb-2`}>PANDA DJ</p>
-        <p className="text-[10px] md:text-xs font-bold uppercase tracking-[0.4em] text-black/40">Buenos Aires • 2026</p>
+      {/* FOOTER: Minimalista */}
+      <footer className="w-full py-4 text-center shrink-0">
+        <p className={`${fontTitulo.className} text-xl md:text-2xl text-black/30`}>PANDA DJ</p>
+        <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">Buenos Aires • 2026</p>
       </footer>
 
-      {/* MODAL (Sin cambios, ya estaba bien) */}
+      {/* MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setIsModalOpen(false)} />
