@@ -78,11 +78,10 @@ export default function LandingPandaDJ() {
       {/* HEADER */}
       <nav className="w-full px-4 py-4 md:px-8 md:py-6 flex justify-between items-start z-40 shrink-0">
         
-        {/* PANDA DJ (LINK CLICKABLE) */}
+        {/* PANDA DJ (Link) */}
         <Link 
           href="https://www.instagram.com/sebasubia/"
           target="_blank"
-          // Convertí el div en Link manteniendo las clases de estilo
           className="bg-white border-[2px] border-black px-3 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer block"
         >
           <div className="relative h-8 w-24 md:h-12 md:w-36">
@@ -90,84 +89,104 @@ export default function LandingPandaDJ() {
           </div>
         </Link>
         
-        {/* DEBO SEGATTI (LINK CLICKABLE ACTUALIZADO) */}
+        {/* DEBO SEGATTI (Link) */}
         <Link 
           href="https://www.instagram.com/debosegatti.dj?igsh=MTlkOW1kcXlyNnZtZw%3D%3D" 
           target="_blank"
-          // Estilo limpio para la imagen sticker
-          className="relative block shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rounded-xl rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer"
+          className="block rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer"
         >
-          <div className="relative h-10 w-32 md:h-14 md:w-48">
+          <div className="relative h-12 w-36 md:h-16 md:w-56">
              <Image 
                src="/DEBO SEGATTI LOGO NEGRO PNG.png" 
                alt="Debo Segatti" 
                fill 
                className="object-contain" 
-               style={{ borderRadius: 'inherit' }} 
              />
           </div>
         </Link>
       </nav>
 
       {/* CONTENIDO CENTRAL */}
-      <main className="flex-grow flex flex-col items-center justify-center px-4 w-full max-w-4xl mx-auto gap-4 md:gap-8">
+      <main className="flex-grow flex flex-col items-center justify-center px-4 w-full max-w-4xl mx-auto gap-2 md:gap-6">
         
         {/* TITULO */}
-        <h1 className={`${fontTitulo.className} text-center leading-[0.9] text-black shrink-0 flex flex-col items-center mt-4`}>
-          <span className="block text-4xl md:text-6xl lg:text-7xl mb-3 drop-shadow-[2px_2px_0px_rgba(255,255,255,1)]">
+        <h1 className={`${fontTitulo.className} text-center leading-[0.9] text-black shrink-0 flex flex-col items-center mt-2`}>
+          <span className="block text-4xl md:text-6xl lg:text-7xl mb-2 drop-shadow-[2px_2px_0px_rgba(255,255,255,1)]">
             DESPREOCUPATE
           </span>
-          <span className="whitespace-nowrap relative inline-block bg-black text-[#F2EFE9] text-2xl md:text-5xl lg:text-6xl px-4 py-2 md:px-8 md:py-4 -rotate-1 transform border-[3px] border-black shadow-[5px_5px_0px_0px_#9CA3AF]">
+          <span className="whitespace-nowrap relative inline-block bg-black text-[#F2EFE9] text-2xl md:text-5xl lg:text-6xl px-4 py-2 md:px-8 md:py-3 -rotate-1 transform border-[3px] border-black shadow-[5px_5px_0px_0px_#9CA3AF]">
             NOSOTROS ARMAMOS TU EVENTO
           </span>
         </h1>
 
-        {/* BOTONERA VERTICAL */}
-        <div className="flex flex-col gap-3 w-full max-w-md shrink-0 mt-4">
-          {[
-            { label: "SET DJ", rotate: "rotate-0", priority: true },
-            { label: "EVENTOS SOCIALES", rotate: "-rotate-1", priority: false },
-            { label: "CORPORATIVOS", rotate: "rotate-1", priority: false },
-            { label: "TÉCNICA", rotate: "-rotate-1", priority: false }
-          ].map((item) => (
-            <button
-              key={item.label}
-              onClick={() => abrirModal(item.label)}
-              className={`
-                ${item.rotate}
-                bg-white text-black 
-                ${item.priority ? 'text-xl md:text-2xl border-[3px]' : 'text-lg md:text-xl border-[2px]'} 
-                font-black uppercase 
-                py-4
-                border-black rounded-xl
-                shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]
-                hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]
-                hover:bg-black hover:text-[#F2EFE9]
-                transition-all duration-200
-                text-center leading-none
-              `}
-            >
-              {item.label}
-            </button>
-          ))}
+        {/* CONTENEDOR DE BOTONES */}
+        <div className="flex flex-col gap-3 w-full max-w-2xl shrink-0 mt-2 px-2">
+          
+          {/* 1. BOTÓN PRIORITARIO (SET DE DJ) */}
+          <button
+            onClick={() => abrirModal("SET DE DJ")}
+            className="w-full bg-white text-black text-2xl md:text-4xl font-black uppercase py-4 border-[3px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-[#F2EFE9] transition-all duration-200 text-center leading-none rotate-1"
+          >
+            SET DE DJ
+          </button>
+
+          {/* 2. GRILLA 2x2 PARA LOS OTROS 4 */}
+          <div className="grid grid-cols-2 gap-3 w-full">
+            {[
+              { label: "EVENTOS PRIVADOS", rotate: "-rotate-1", smallText: false },
+              { label: "CUMPLEAÑOS PARA GRUPOS DE 15/30/80 INVITADOS", rotate: "rotate-1", smallText: true },
+              { label: "EVENTO SOCIAL-CORPORATIVOS", rotate: "-rotate-1", smallText: false },
+              { label: "SONIDO - ILUMINACIÓN", rotate: "rotate-1", smallText: false }
+            ].map((item) => (
+              <button
+                key={item.label}
+                onClick={() => abrirModal(item.label)}
+                className={`
+                  ${item.rotate}
+                  bg-white text-black 
+                  border-[2px] border-black rounded-xl
+                  shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]
+                  hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]
+                  hover:bg-black hover:text-[#F2EFE9]
+                  transition-all duration-200
+                  flex items-center justify-center text-center
+                  p-2 min-h-[80px] md:min-h-[100px]
+                `}
+              >
+                {/* Lógica de tamaño de letra para que entre el texto largo */}
+                <span className={`font-black uppercase leading-tight ${item.smallText ? 'text-[10px] md:text-sm' : 'text-sm md:text-xl'}`}>
+                  {item.label}
+                </span>
+              </button>
+            ))}
+          </div>
+
         </div>
 
-        {/* LINK ADICIONALES */}
-        <button 
-          onClick={() => abrirModal("SERVICIOS ADICIONALES")}
-          className="font-black uppercase text-xs md:text-sm border-b-[2px] border-black pb-0.5 hover:text-gray-600 transition-colors flex items-center gap-2 shrink-0 mt-2"
-        >
-          <span className="text-lg">➔</span> Ver Servicios Adicionales (Streaming, etc)
-        </button>
+        {/* LINK ADICIONALES (TEXTO COMPLETO) */}
+        <div className="mt-2 text-center max-w-lg">
+          <button 
+            onClick={() => abrirModal("SERVICIOS ADICIONALES")}
+            className="group flex flex-col items-center justify-center hover:opacity-80 transition-opacity"
+          >
+            <span className="font-black uppercase text-xs md:text-sm border-b-[2px] border-black pb-0.5 mb-1">
+              SERVICIOS ADICIONALES QUE OFRECEMOS
+            </span>
+            <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-wider text-gray-600">
+              ( CATERING, STAND DE GLITTER, CABINA 360, FOTOGRAFÍA, STREAMING )
+            </span>
+          </button>
+        </div>
+
       </main>
 
       {/* FOOTER */}
-      <footer className="w-full py-4 text-center shrink-0">
+      <footer className="w-full py-2 text-center shrink-0">
         <p className={`${fontTitulo.className} text-xl md:text-2xl text-black/30`}>PANDA DJ & DEBO SEGATTI</p>
         <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">Buenos Aires • 2026</p>
       </footer>
 
-      {/* MODAL */}
+      {/* MODAL (Sin cambios funcionales, solo visuales) */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setIsModalOpen(false)} />
@@ -191,7 +210,7 @@ export default function LandingPandaDJ() {
               <>
                 <div className="mt-6 mb-6 text-center">
                   <h2 className={`${fontTitulo.className} text-4xl mb-1 text-white tracking-wide`}>RESERVAR</h2>
-                  <div className="inline-block bg-white text-black px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-sm transform -rotate-2">
+                  <div className="inline-block bg-white text-black px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-sm transform -rotate-2 max-w-full truncate">
                     {evento}
                   </div>
                 </div>
