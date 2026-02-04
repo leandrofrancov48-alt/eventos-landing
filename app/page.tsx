@@ -21,7 +21,7 @@ export default function LandingPandaDJ() {
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
 
-  const WEBHOOK_URL = "https://hook.us2.make.com/h4cdq5iw9iiuk2xwulp9zpn9rumku4ye";
+  const WEBHOOK_URL = "https://hook.us2.make.com/r30c8wlriemn1hypqgu5v9o7c1ja53zh";
 
   const abrirModal = (tipo: string) => {
     setEvento(tipo);
