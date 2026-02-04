@@ -75,25 +75,25 @@ export default function LandingPandaDJ() {
         .animate-bounce-slow { animation: bounceSlow 3s infinite ease-in-out; }
       `}} />
 
-      {/* HEADER: Logos equilibrados en altura y padding */}
+      {/* HEADER */}
       <nav className="w-full px-4 py-4 md:px-8 md:py-6 flex justify-between items-start z-40 shrink-0">
         
-        {/* Logo Izquierda (PANDA DJ) */}
+        {/* PANDA DJ (Formato cuadrado/compacto) */}
         <div className="bg-white border-[2px] border-black px-3 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg] hover:rotate-0 transition-transform cursor-pointer">
           <div className="relative h-8 w-24 md:h-12 md:w-36">
             <Image src="/PANDA-DJ-LOGO-NEGRO-2.png" alt="Panda DJ Logo" fill className="object-contain" />
           </div>
         </div>
         
-        {/* Logo Derecha (DEBO SEGATTI) - Ajustado para matchear al de Panda */}
+        {/* DEBO SEGATTI (Formato ancho) */}
         <Link 
           href="https://instagram.com/debosegatti" 
           target="_blank"
-          // CAMBIO: px-3 py-1 (Igual que Panda) en vez de px-4 py-2
-          className="bg-white border-[2px] border-black px-3 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer"
+          // MENOS PADDING (px-2) para que el logo aproveche todo el espacio
+          className="bg-white border-[2px] border-black px-2 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer flex items-center justify-center"
         >
-          {/* CAMBIO: Alturas iguales a Panda (h-8/h-12) pero ancho adaptado al texto largo */}
-          <div className="relative h-8 w-32 md:h-12 md:w-44">
+          {/* MÁS ANCHO (w-40 / w-56) para que el logo "estire" y no se achique */}
+          <div className="relative h-8 w-40 md:h-12 md:w-56">
              <Image src="/DEBO SEGATTI LOGO NEGRO PNG.png" alt="Debo Segatti" fill className="object-contain" />
           </div>
         </Link>
@@ -157,7 +157,7 @@ export default function LandingPandaDJ() {
         <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">Buenos Aires • 2026</p>
       </footer>
 
-      {/* MODAL */}
+      {/* MODAL (MISMO CÓDIGO) */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setIsModalOpen(false)} />
