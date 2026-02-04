@@ -75,7 +75,7 @@ export default function LandingPandaDJ() {
         .animate-bounce-slow { animation: bounceSlow 3s infinite ease-in-out; }
       `}} />
 
-      {/* HEADER: Logos equilibrados */}
+      {/* HEADER: Logos equilibrados en altura y padding */}
       <nav className="w-full px-4 py-4 md:px-8 md:py-6 flex justify-between items-start z-40 shrink-0">
         
         {/* Logo Izquierda (PANDA DJ) */}
@@ -85,14 +85,15 @@ export default function LandingPandaDJ() {
           </div>
         </div>
         
-        {/* Logo Derecha (DEBO SEGATTI) - CLICKABLE Y MÁS GRANDE */}
+        {/* Logo Derecha (DEBO SEGATTI) - Ajustado para matchear al de Panda */}
         <Link 
-          href="https://instagram.com/debosegatti" // <-- ACÁ VA EL LINK DE ELLA
+          href="https://instagram.com/debosegatti" 
           target="_blank"
-          className="bg-white border-[2px] border-black px-4 py-2 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer"
+          // CAMBIO: px-3 py-1 (Igual que Panda) en vez de px-4 py-2
+          className="bg-white border-[2px] border-black px-3 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer"
         >
-          {/* Agrandé las dimensiones aquí */}
-          <div className="relative h-10 w-32 md:h-14 md:w-48">
+          {/* CAMBIO: Alturas iguales a Panda (h-8/h-12) pero ancho adaptado al texto largo */}
+          <div className="relative h-8 w-32 md:h-12 md:w-44">
              <Image src="/DEBO SEGATTI LOGO NEGRO PNG.png" alt="Debo Segatti" fill className="object-contain" />
           </div>
         </Link>
@@ -101,7 +102,7 @@ export default function LandingPandaDJ() {
       {/* CONTENIDO CENTRAL */}
       <main className="flex-grow flex flex-col items-center justify-center px-4 w-full max-w-4xl mx-auto gap-4 md:gap-8">
         
-        {/* TITULO NUEVO: Sin logo central */}
+        {/* TITULO */}
         <h1 className={`${fontTitulo.className} text-center leading-[0.9] text-black shrink-0 flex flex-col items-center mt-4`}>
           <span className="block text-4xl md:text-6xl lg:text-7xl mb-3 drop-shadow-[2px_2px_0px_rgba(255,255,255,1)]">
             DESPREOCUPATE
@@ -111,10 +112,10 @@ export default function LandingPandaDJ() {
           </span>
         </h1>
 
-        {/* BOTONERA VERTICAL (LISTA) */}
+        {/* BOTONERA VERTICAL */}
         <div className="flex flex-col gap-3 w-full max-w-md shrink-0 mt-4">
           {[
-            { label: "SET DJ", rotate: "rotate-0", priority: true }, // El primero
+            { label: "SET DJ", rotate: "rotate-0", priority: true },
             { label: "EVENTOS SOCIALES", rotate: "-rotate-1", priority: false },
             { label: "CORPORATIVOS", rotate: "rotate-1", priority: false },
             { label: "TÉCNICA", rotate: "-rotate-1", priority: false }
