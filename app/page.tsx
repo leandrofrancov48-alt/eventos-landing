@@ -64,7 +64,7 @@ export default function LandingPandaDJ() {
   };
 
   return (
-    <div className={`${fontCuerpo.className} h-screen w-full bg-[#F2EFE9] text-black overflow-hidden flex flex-col justify-between`}>
+    <div className={`${fontCuerpo.className} h-screen w-full bg-[#f7d7a7] text-black overflow-hidden flex flex-col justify-between`}>
       
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
