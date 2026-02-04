@@ -20,6 +20,7 @@ export default function LandingPandaDJ() {
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
 
+  // URL DE TU WEBHOOK
   const WEBHOOK_URL = "https://hook.us2.make.com/h4cdq5iw9iiuk2xwulp9zpn9rumku4ye";
 
   const abrirModal = (tipo: string) => {
@@ -54,7 +55,7 @@ export default function LandingPandaDJ() {
       setTimeout(() => {
         setIsModalOpen(false);
         setPhone("");
-      }, 2500);
+      }, 3000);
     } catch (error) {
       alert("Error al enviar.");
     } finally {
@@ -63,92 +64,144 @@ export default function LandingPandaDJ() {
   };
 
   return (
-    // CAMBIO: bg-[#F5F2EB] es el color "hueso" de la imagen que te gustó
-    <div className={`${fontCuerpo.variable} ${fontTitulo.variable} min-h-screen bg-[#F5F2EB] text-[#1A1A1A] font-cuerpo selection:bg-black selection:text-white`}>
+    // FONDO HUESO CON TEXTURA DE GRANO SUTIL (bg-dot-pattern opcional si querés agregar CSS extra)
+    <div className={`${fontCuerpo.variable} ${fontTitulo.variable} min-h-screen bg-[#F2EFE9] text-black font-cuerpo selection:bg-black selection:text-[#F2EFE9] overflow-x-hidden`}>
       
-      {/* NAV SUAVIZADO */}
-      <nav className="fixed top-0 w-full z-40 bg-[#F5F2EB]/80 backdrop-blur-md px-6 py-4 flex justify-between items-center border-b border-black/5">
-        <div className="relative h-12 w-32">
-          <Image src="/PANDA-DJ-LOGO-NEGRO-2.png" alt="Panda DJ Logo" fill className="object-contain" />
+      {/* NAV: ESTILO "RECORTADO" */}
+      <nav className="fixed top-4 left-0 right-0 z-40 px-6 flex justify-between items-center pointer-events-none">
+        <div className="pointer-events-auto bg-white border-[3px] border-black px-4 py-2 rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg] hover:rotate-0 transition-transform">
+          <div className="relative h-8 w-24 md:h-10 md:w-32">
+            <Image src="/PANDA-DJ-LOGO-NEGRO-2.png" alt="Panda DJ Logo" fill className="object-contain" />
+          </div>
         </div>
-        <div className="hidden md:block uppercase tracking-[0.3em] text-[10px] font-bold opacity-60">
-          High Quality Events
+        <div className="pointer-events-auto bg-black text-white px-3 py-1 rounded-md border-[2px] border-black shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] rotate-[2deg]">
+           <span className="uppercase tracking-[0.2em] text-[10px] font-bold">Since 2026</span>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative h-screen flex flex-col items-center justify-center px-6 text-center">
-        <div className="mb-8 relative h-32 w-32 animate-fade-in grayscale">
-          <Image src="/PANDA-DJ-LOGO-NEGRO (1).png" alt="Panda Face" fill className="object-contain" />
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-12 text-center">
+        
+        {/* LOGO CENTRAL "STICKER" */}
+        <div className="mb-6 relative h-40 w-40 md:h-52 md:w-52 animate-bounce-slow hover:scale-110 transition-transform duration-300">
+           {/* EFECTO DE SOMBRA "PEGATINA" */}
+           <div className="absolute inset-0 bg-black rounded-full translate-x-2 translate-y-2 opacity-20 blur-sm"></div>
+           <Image src="/PANDA-DJ-LOGO-NEGRO (1).png" alt="Panda Face" fill className="object-contain drop-shadow-xl" />
         </div>
         
-        <h1 className="font-titulo text-6xl md:text-8xl mb-6 uppercase leading-none tracking-tighter text-[#1A1A1A]">
-          Hacemos realidad tu <br/>
-          <span className="bg-[#1A1A1A] text-[#F5F2EB] px-4 italic">evento soñado</span>
+        {/* TITULO CON ESTROKE (TEXT-STROKE NO NATIVO EN TAILWIND, USAMOS SOMBRA DURA PARA SIMULAR) */}
+        <h1 className="font-titulo text-6xl md:text-9xl mb-4 uppercase leading-[0.9] tracking-tighter text-black drop-shadow-[3px_3px_0px_rgba(255,255,255,1)]">
+          Hacemos <br/>
+          <span className="relative inline-block px-4 py-1 bg-black text-[#F2EFE9] -rotate-2 transform border-[3px] border-black shadow-[6px_6px_0px_0px_#9CA3AF]">
+            Realidad
+          </span> <br/>
+          Tu Evento
         </h1>
         
-        <p className="text-[#1A1A1A]/60 max-w-lg mx-auto mb-12 uppercase tracking-[0.2em] font-medium text-sm">
-          Seleccioná un servicio para comenzar la experiencia Panda DJ
+        <p className="text-black font-bold uppercase tracking-[0.2em] mb-12 text-sm md:text-lg bg-white border-[2px] border-black px-6 py-2 rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rotate-1">
+          Experiencia Panda DJ
         </p>
 
-        {/* CATEGORÍAS CON NEGRO "MATTE" */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl">
-          {["EVENTOS PRIVADOS", "CUMPLEAÑOS (15/30/80 INV.)", "SOCIAL - CORPORATIVOS", "DJ - SONIDO - ILUMINACIÓN"].map((item) => (
+        {/* BOTONES TIPO STICKERS DESORDENADOS */}
+        <div className="flex flex-wrap justify-center gap-6 w-full max-w-5xl">
+          {[
+            { label: "EVENTOS PRIVADOS", rotate: "-rotate-1" },
+            { label: "CUMPLEAÑOS (15/30/80)", rotate: "rotate-2" },
+            { label: "SOCIAL & CORPORATIVOS", rotate: "-rotate-2" },
+            { label: "SONIDO E ILUMINACIÓN", rotate: "rotate-1" }
+          ].map((item) => (
             <button
-              key={item}
-              onClick={() => abrirModal(item)}
-              className="group relative py-6 px-4 border-2 border-[#1A1A1A] rounded-2xl transition-all duration-300 hover:bg-[#1A1A1A] hover:text-[#F5F2EB] shadow-sm"
+              key={item.label}
+              onClick={() => abrirModal(item.label)}
+              className={`
+                ${item.rotate}
+                relative group bg-white text-black text-xl md:text-2xl font-bold uppercase py-6 px-8
+                border-[3px] border-black rounded-2xl
+                shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]
+                hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]
+                transition-all duration-200
+                flex-grow md:flex-grow-0
+              `}
             >
-              <span className="relative z-10 text-xl md:text-2xl font-bold uppercase tracking-tight">{item}</span>
+              {item.label}
             </button>
           ))}
         </div>
 
         <button 
           onClick={() => abrirModal("SERVICIOS ADICIONALES")}
-          className="mt-10 uppercase tracking-[0.4em] text-xs font-black border-b-2 border-[#1A1A1A] pb-1 hover:opacity-50 transition-all"
+          className="mt-16 font-black uppercase text-sm border-b-[3px] border-black pb-1 hover:text-gray-600 transition-colors flex items-center gap-2"
         >
-          + Ver Servicios Adicionales
+          <span className="text-xl">➔</span> Ver Servicios Adicionales
         </button>
       </section>
 
-      {/* MODAL CON FONDO CREMA */}
+      {/* MODAL "DARK MODE CONSOLA" */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-[#1A1A1A]/40 backdrop-blur-md animate-fade-in" onClick={() => setIsModalOpen(false)} />
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setIsModalOpen(false)} />
           
-          <div className="relative bg-[#F5F2EB] w-full max-w-lg rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] p-8 md:p-12 animate-modal-in border border-black/5">
-            <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-8 text-2xl opacity-40 hover:opacity-100 transition-opacity">✕</button>
+          {/* CONTENEDOR MODAL: TIPO PANTALLA DE VMIX/DJ */}
+          <div className="relative bg-[#111] text-white w-full max-w-md rounded-3xl border-[4px] border-white shadow-[0px_0px_40px_rgba(255,255,255,0.2)] p-8 overflow-hidden animate-slide-up">
+            
+            {/* DETALLE DECORATIVO "REC" */}
+            <div className="absolute top-6 left-6 flex items-center gap-2">
+               <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+               <span className="text-[10px] font-mono tracking-widest text-gray-400">LIVE INPUT</span>
+            </div>
+
+            <button onClick={() => setIsModalOpen(false)} className="absolute top-4 right-6 text-3xl font-bold hover:text-red-500 transition-colors">×</button>
 
             {enviado ? (
-              <div className="text-center py-10 animate-fade-in">
-                <div className="text-6xl mb-4 grayscale">🐼</div>
-                <h2 className="font-titulo text-5xl mb-2 uppercase">¡RECIBIDO!</h2>
-                <p className="font-bold uppercase tracking-widest text-black/40">Juan Alberto, nos hablamos pronto.</p>
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">🎚️</div>
+                <h2 className="font-titulo text-4xl mb-2 text-white">¡CONEXIÓN EXITOSA!</h2>
+                <p className="font-mono text-xs text-green-400 uppercase tracking-widest">Datos recibidos correctamente.<br/>Juan Alberto, te contactaremos.</p>
               </div>
             ) : (
               <>
-                <div className="mb-8">
-                  <h2 className="font-titulo text-5xl mb-1 uppercase leading-none">RESERVAR</h2>
-                  <p className="text-black/40 font-bold uppercase tracking-widest text-[10px]">{evento}</p>
+                <div className="mt-8 mb-8 text-center">
+                  <h2 className="font-titulo text-5xl mb-1 text-white tracking-wide">RESERVAR</h2>
+                  <div className="inline-block bg-white text-black px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-sm transform -rotate-2">
+                    {evento}
+                  </div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label className="block text-[10px] font-black text-black/40 tracking-[0.2em] uppercase mb-2">Nombre completo</label>
-                    <input name="nombre" type="text" placeholder="Juan Alberto" className="w-full bg-black/5 border-b-2 border-black p-4 text-lg focus:bg-black/10 outline-none transition-all rounded-t-lg" required />
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase ml-2">Nombre</label>
+                    <input 
+                      name="nombre" 
+                      type="text" 
+                      placeholder="JUAN ALBERTO" 
+                      className="w-full bg-[#222] border-[2px] border-[#333] focus:border-white rounded-xl p-4 text-white font-bold outline-none transition-colors placeholder:text-gray-700 font-mono" 
+                      required 
+                    />
                   </div>
                   
-                  <div>
-                    <label className="block text-[10px] font-black text-black/40 tracking-[0.2em] uppercase mb-2">WhatsApp</label>
-                    <div className="flex items-center bg-black/5 border-b-2 border-black rounded-t-lg">
-                      <span className="pl-4 pr-2 font-bold text-lg opacity-60">+54 9</span>
-                      <input type="tel" value={phone} onChange={handlePhoneChange} placeholder="11 1234 5678" className="w-full bg-transparent p-4 text-lg outline-none" required />
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase ml-2">WhatsApp</label>
+                    <div className="flex items-center bg-[#222] border-[2px] border-[#333] focus-within:border-white rounded-xl overflow-hidden transition-colors">
+                      <div className="bg-[#333] h-full px-4 py-4 flex items-center justify-center border-r border-[#444]">
+                         <span className="font-mono text-gray-400 font-bold text-sm">+54 9</span>
+                      </div>
+                      <input 
+                        type="tel" 
+                        value={phone} 
+                        onChange={handlePhoneChange} 
+                        placeholder="11 1234 5678" 
+                        className="w-full bg-transparent p-4 text-white font-bold outline-none font-mono" 
+                        required 
+                      />
                     </div>
                   </div>
 
-                  <button type="submit" disabled={enviando} className="w-full bg-[#1A1A1A] text-[#F5F2EB] py-5 rounded-2xl text-xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all uppercase tracking-widest shadow-lg disabled:opacity-50">
-                    {enviando ? "ENVIANDO..." : "AGENDAR LLAMADA"}
+                  <button 
+                    type="submit" 
+                    disabled={enviando} 
+                    className="w-full bg-white text-black py-4 rounded-xl text-lg font-black uppercase tracking-widest hover:bg-[#F2EFE9] hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0px_0px_20px_rgba(255,255,255,0.3)] mt-4 border-2 border-transparent hover:border-black"
+                  >
+                    {enviando ? "ENVIANDO..." : "CONFIRMAR"}
                   </button>
                 </form>
               </>
@@ -157,8 +210,10 @@ export default function LandingPandaDJ() {
         </div>
       )}
 
-      <footer className="py-10 text-center text-black/20 text-[10px] font-bold uppercase tracking-[0.5em]">
-        © 2026 PANDA DJ • Buenos Aires
+      {/* FOOTER */}
+      <footer className="py-12 text-center">
+        <p className="font-titulo text-2xl text-black/30">PANDA DJ</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">Buenos Aires • 2026</p>
       </footer>
 
       <style jsx global>{`
@@ -166,13 +221,18 @@ export default function LandingPandaDJ() {
           --font-titulo: ${fontTitulo.style.fontFamily};
           --font-cuerpo: ${fontCuerpo.style.fontFamily};
         }
-        @keyframes modalIn {
-          from { opacity: 0; transform: translateY(30px) scale(0.95); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes slideUp {
+          from { transform: translateY(50px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
         }
-        .animate-modal-in { animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes bounceSlow {
+          0%, 100% { transform: translateY(-5%); }
+          50% { transform: translateY(5%); }
+        }
+        .animate-bounce-slow { animation: bounceSlow 3s infinite ease-in-out; }
       `}</style>
     </div>
   );
