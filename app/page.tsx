@@ -78,7 +78,7 @@ export default function LandingPandaDJ() {
       {/* HEADER */}
       <nav className="w-full px-4 py-4 md:px-8 md:py-6 flex justify-between items-start z-40 shrink-0">
         
-        {/* PANDA DJ (Link) */}
+        {/* PANDA DJ (Este tiene padding + borde por CSS, así que su altura total es mayor al h-8 de la imagen interna) */}
         <Link 
           href="https://www.instagram.com/sebasubia/"
           target="_blank"
@@ -89,13 +89,16 @@ export default function LandingPandaDJ() {
           </div>
         </Link>
         
-        {/* DEBO SEGATTI (Link) */}
+        {/* DEBO SEGATTI (Imagen Nueva SIN AIRE) */}
         <Link 
           href="https://www.instagram.com/debosegatti.dj?igsh=MTlkOW1kcXlyNnZtZw%3D%3D" 
           target="_blank"
           className="block rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer"
         >
-          <div className="relative h-12 w-36 md:h-16 md:w-56">
+          {/* Dimensiones ajustadas para la imagen recortada:
+              h-10 (celu) y h-14 (PC) deberían igualar la altura total del botón de Panda 
+          */}
+          <div className="relative h-10 w-32 md:h-14 md:w-48">
              <Image 
                src="/DEBO SEGATTI LOGO NEGRO PNG.png" 
                alt="Debo Segatti" 
@@ -122,7 +125,7 @@ export default function LandingPandaDJ() {
         {/* CONTENEDOR DE BOTONES */}
         <div className="flex flex-col gap-3 w-full max-w-2xl shrink-0 mt-2 px-2">
           
-          {/* 1. BOTÓN PRIORITARIO (SET DE DJ) */}
+          {/* 1. SET DE DJ */}
           <button
             onClick={() => abrirModal("SET DE DJ")}
             className="w-full bg-white text-black text-2xl md:text-4xl font-black uppercase py-4 border-[3px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-[#F2EFE9] transition-all duration-200 text-center leading-none rotate-1"
@@ -130,7 +133,7 @@ export default function LandingPandaDJ() {
             SET DE DJ
           </button>
 
-          {/* 2. GRILLA 2x2 PARA LOS OTROS 4 */}
+          {/* 2. GRILLA 2x2 */}
           <div className="grid grid-cols-2 gap-3 w-full">
             {[
               { label: "EVENTOS PRIVADOS", rotate: "-rotate-1", smallText: false },
@@ -153,7 +156,6 @@ export default function LandingPandaDJ() {
                   p-2 min-h-[80px] md:min-h-[100px]
                 `}
               >
-                {/* Lógica de tamaño de letra para que entre el texto largo */}
                 <span className={`font-black uppercase leading-tight ${item.smallText ? 'text-[10px] md:text-sm' : 'text-sm md:text-xl'}`}>
                   {item.label}
                 </span>
@@ -163,7 +165,7 @@ export default function LandingPandaDJ() {
 
         </div>
 
-        {/* LINK ADICIONALES (TEXTO COMPLETO) */}
+        {/* LINK ADICIONALES */}
         <div className="mt-2 text-center max-w-lg">
           <button 
             onClick={() => abrirModal("SERVICIOS ADICIONALES")}
@@ -186,7 +188,7 @@ export default function LandingPandaDJ() {
         <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">Buenos Aires • 2026</p>
       </footer>
 
-      {/* MODAL (Sin cambios funcionales, solo visuales) */}
+      {/* MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setIsModalOpen(false)} />
@@ -210,7 +212,7 @@ export default function LandingPandaDJ() {
               <>
                 <div className="mt-6 mb-6 text-center">
                   <h2 className={`${fontTitulo.className} text-4xl mb-1 text-white tracking-wide`}>RESERVAR</h2>
-                  <div className="inline-block bg-white text-black px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-sm transform -rotate-2 max-w-full truncate">
+                  <div className="inline-block bg-white text-black px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-sm transform -rotate-2">
                     {evento}
                   </div>
                 </div>
