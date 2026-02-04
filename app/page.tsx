@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import localFont from 'next/font/local';
+import Image from 'next/image';
 
 const fontTitulo = localFont({
   src: './fonts/YellowBalloon200-Regular.ttf',
@@ -12,23 +13,25 @@ const fontCuerpo = localFont({
   variable: '--font-cuerpo',
 });
 
-export default function LandingEventos() {
+export default function LandingPandaDJ() {
   const [evento, setEvento] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [phone, setPhone] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
 
-  // REEMPLAZA ESTO CON TU URL DE MAKE.COM
-  const WEBHOOK_URL = "https://hook.us2.make.com/r30c8wlriemn1hypqgu5v9o7c1ja53zh";
+  const WEBHOOK_URL = "https://hook.us2.make.com/h4cdq5iw9iiuk2xwulp9zpn9rumku4ye";
 
-  const seleccionar = (tipo: string): void => {
+  const abrirModal = (tipo: string) => {
     setEvento(tipo);
+    setIsModalOpen(true);
     setEnviado(false);
-    setTimeout(() => {
-      const element = document.getElementById('contacto');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
+  };
+
+  // Validación de solo números y formateo básico
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value.replace(/\D/g, ''); // Elimina todo lo que no sea número
+    setPhone(input);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +41,7 @@ export default function LandingEventos() {
     const formData = new FormData(e.currentTarget);
     const data = {
       nombre: formData.get('nombre'),
-      whatsapp: formData.get('whatsapp'),
+      whatsapp: `+549${phone}`, // Prefijo Argentina por defecto como pidió el amigo
       evento: evento,
       fecha: new Date().toLocaleString('es-AR'),
     };
@@ -52,116 +55,174 @@ export default function LandingEventos() {
 
       if (response.ok) {
         setEnviado(true);
-        setEvento(""); // Limpia para mostrar mensaje de éxito
+        setTimeout(() => {
+          setIsModalOpen(false);
+          setPhone("");
+        }, 2500);
       }
     } catch (error) {
-      console.error("Error enviando formulario", error);
-      alert("Hubo un error. Por favor, intentá de nuevo.");
+      alert("Error al enviar. Intenta de nuevo.");
     } finally {
       setEnviando(false);
     }
   };
 
   return (
-    <div className={`${fontCuerpo.variable} ${fontTitulo.variable} min-h-screen bg-black text-white selection:bg-yellow-500 font-cuerpo`}>
+    <div className={`${fontCuerpo.variable} ${fontTitulo.variable} min-h-screen bg-white text-black font-cuerpo selection:bg-black selection:text-white`}>
       
-      {/* HERO SECTION */}
-      <section 
-        className="relative min-h-screen flex flex-col items-center justify-center bg-cover bg-center px-6 py-20"
-        style={{ 
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/FOTO%20FONDO.avif')` 
-        }}
-      >
-        <div className="text-center w-full max-w-5xl">
-          <h1 className="font-titulo text-5xl md:text-7xl mb-4 tracking-tighter uppercase leading-[1.1] pt-4">
-            Hacemos realidad tu <br/>
-            <span className="text-yellow-500 italic">evento soñado</span>
-          </h1>
-          
-          {enviado ? (
-            <div className="mt-10 p-8 border-2 border-yellow-500 rounded-2xl bg-yellow-500 text-black animate-fade-in-up">
-              <h2 className="font-titulo text-4xl mb-2 uppercase">¡Recibido!</h2>
-              <p className="font-bold text-xl uppercase tracking-widest">En breve nos comunicaremos con vos.</p>
-              <button onClick={() => setEnviado(false)} className="mt-6 underline font-black uppercase text-sm">Volver a inicio</button>
-            </div>
-          ) : (
-            <>
-              <p className="text-base md:text-lg text-gray-300 mb-10 max-w-xl mx-auto uppercase tracking-widest font-bold">
-                Seleccioná el servicio que necesitás:
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl mx-auto">
-                {["EVENTOS PRIVADOS", "CUMPLEAÑOS (15/30/80 INV.)", "SOCIAL - CORPORATIVOS", "DJ - SONIDO - ILUMINACIÓN"].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => seleccionar(item)}
-                    className={`py-5 px-4 border-2 rounded-xl transition-all duration-300 text-xl md:text-2xl tracking-wide leading-tight uppercase font-bold ${
-                      evento === item ? 'bg-yellow-500 text-black border-yellow-500 scale-105' : 'border-yellow-500 hover:bg-yellow-500 hover:text-black'
-                    }`}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-
-              <div className="mt-12 max-w-3xl mx-auto">
-                <button 
-                  onClick={() => seleccionar("SERVICIOS ADICIONALES")}
-                  className={`w-full p-6 border-2 border-dashed rounded-2xl transition-all duration-300 group ${
-                    evento === "SERVICIOS ADICIONALES" ? 'bg-yellow-500 text-black border-yellow-500' : 'border-yellow-500/40 hover:border-yellow-500 bg-white/5 backdrop-blur-sm'
-                  }`}
-                >
-                  <h3 className={`font-bold tracking-[0.2em] mb-3 text-sm ${evento === "SERVICIOS ADICIONALES" ? 'text-black' : 'text-yellow-500'}`}>SERVICIOS ADICIONALES</h3>
-                  <p className={`text-lg md:text-xl font-bold uppercase tracking-wider mb-4 ${evento === "SERVICIOS ADICIONALES" ? 'text-black' : 'text-gray-300'}`}>CATERING • STAND DE GLITTER • CABINA 360 • FOTOGRAFÍA</p>
-                  <span className="inline-block px-8 py-2 rounded-full font-black uppercase tracking-widest bg-yellow-500 text-black group-hover:bg-white transition-colors">CONSULTAR AHORA</span>
-                </button>
-              </div>
-            </>
-          )}
+      {/* HEADER / NAV */}
+      <nav className="fixed top-0 w-full z-40 bg-white/80 backdrop-blur-md px-6 py-4 flex justify-between items-center border-b border-gray-100">
+        <div className="relative h-12 w-32">
+          <Image 
+            src="/PANDA-DJ-LOGO-NEGRO-2.png" 
+            alt="Panda DJ Logo" 
+            fill 
+            className="object-contain"
+          />
         </div>
+        <div className="hidden md:block uppercase tracking-[0.3em] text-[10px] font-bold">
+          High Quality Events
+        </div>
+      </nav>
+
+      {/* HERO SECTION */}
+      <section className="relative h-screen flex flex-col items-center justify-center px-6 text-center">
+        <div className="mb-8 relative h-32 w-32 animate-fade-in">
+          <Image 
+            src="/PANDA-DJ-LOGO-NEGRO (1).png" 
+            alt="Panda Face" 
+            fill 
+            className="object-contain"
+          />
+        </div>
+        
+        <h1 className="font-titulo text-6xl md:text-8xl mb-6 uppercase leading-none tracking-tighter">
+          Hacemos realidad tu <br/>
+          <span className="bg-black text-white px-4 italic">evento soñado</span>
+        </h1>
+        
+        <p className="text-gray-500 max-w-lg mx-auto mb-12 uppercase tracking-[0.2em] font-medium text-sm md:text-base">
+          Seleccioná un servicio para comenzar la experiencia Panda DJ
+        </p>
+
+        {/* CATEGORÍAS */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl">
+          {[
+            "EVENTOS PRIVADOS",
+            "CUMPLEAÑOS (15/30/80 INV.)",
+            "SOCIAL - CORPORATIVOS",
+            "DJ - SONIDO - ILUMINACIÓN"
+          ].map((item) => (
+            <button
+              key={item}
+              onClick={() => abrirModal(item)}
+              className="group relative py-6 px-4 border-2 border-black rounded-2xl transition-all duration-300 hover:bg-black hover:text-white"
+            >
+              <span className="relative z-10 text-xl md:text-2xl font-bold uppercase tracking-tight">{item}</span>
+            </button>
+          ))}
+        </div>
+
+        <button 
+          onClick={() => abrirModal("SERVICIOS ADICIONALES")}
+          className="mt-10 uppercase tracking-[0.4em] text-xs font-black border-b-2 border-black pb-1 hover:text-gray-400 hover:border-gray-400 transition-all"
+        >
+          + Ver Servicios Adicionales
+        </button>
       </section>
 
-      {/* FORM SECTION */}
-      {evento && !enviado && (
-        <section id="contacto" className="py-24 bg-white text-black px-6 animate-fade-in-up">
-          <div className="max-w-md mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="font-titulo text-4xl md:text-5xl mb-2 uppercase italic leading-none">¡Excelente!</h2>
-              <p className="text-gray-600 font-bold uppercase tracking-widest text-sm">
-                {evento === "SERVICIOS ADICIONALES" ? "Contanos qué adicionales te interesan" : `Interés en: ${evento}`}
-              </p>
-            </div>
+      {/* MODAL OVERLAY */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
+            onClick={() => setIsModalOpen(false)}
+          />
+          
+          <div className="relative bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl p-8 md:p-12 animate-modal-in">
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-6 right-8 text-2xl hover:rotate-90 transition-transform"
+            >✕</button>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-1">
-                <label className="block text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">Nombre completo</label>
-                <input name="nombre" type="text" placeholder="Ej: Juan Alberto" className="w-full border-b-2 border-gray-200 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" required />
+            {enviado ? (
+              <div className="text-center py-10 animate-fade-in">
+                <div className="text-6xl mb-4">🐼</div>
+                <h2 className="font-titulo text-5xl mb-2 uppercase">¡RECIBIDO!</h2>
+                <p className="font-bold uppercase tracking-widest text-gray-400">Juan Alberto, nos hablamos pronto.</p>
               </div>
-              <div className="space-y-1">
-                <label className="block text-[10px] font-black text-gray-400 tracking-[0.3em] uppercase">WhatsApp</label>
-                <input name="whatsapp" type="tel" placeholder="Ej: 54911..." className="w-full border-b-2 border-gray-200 p-3 focus:border-yellow-500 outline-none transition-colors text-lg" required />
-              </div>
-              
-              <button 
-                type="submit" 
-                disabled={enviando}
-                className="w-full bg-black text-white py-5 rounded-full text-xl font-bold hover:bg-yellow-500 hover:text-black transition-all uppercase tracking-widest shadow-xl disabled:opacity-50"
-              >
-                {enviando ? "ENVIANDO..." : "AGENDAR LLAMADA"}
-              </button>
-            </form>
+            ) : (
+              <>
+                <div className="mb-8">
+                  <h2 className="font-titulo text-5xl mb-1 uppercase leading-none">RESERVAR</h2>
+                  <p className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">{evento}</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 tracking-[0.2em] uppercase mb-2">Nombre completo</label>
+                    <input 
+                      name="nombre" 
+                      type="text" 
+                      placeholder="Juan Alberto" 
+                      className="w-full border-b-2 border-black p-3 text-lg focus:bg-gray-50 outline-none transition-all" 
+                      required 
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 tracking-[0.2em] uppercase mb-2">WhatsApp</label>
+                    <div className="flex items-center border-b-2 border-black">
+                      <span className="pr-2 font-bold text-lg">+54 9</span>
+                      <input 
+                        type="tel" 
+                        value={phone}
+                        onChange={handlePhoneChange}
+                        placeholder="11 1234 5678" 
+                        className="w-full p-3 text-lg focus:bg-gray-50 outline-none transition-all" 
+                        required 
+                      />
+                    </div>
+                    <p className="text-[9px] text-gray-400 mt-2 uppercase font-bold tracking-tighter">Solo números • Sin el 0 ni el 15</p>
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    disabled={enviando}
+                    className="w-full bg-black text-white py-5 rounded-2xl text-xl font-bold hover:bg-gray-800 transition-all uppercase tracking-widest shadow-lg disabled:opacity-50"
+                  >
+                    {enviando ? "ENVIANDO..." : "AGENDAR LLAMADA"}
+                  </button>
+                </form>
+              </>
+            )}
           </div>
-        </section>
+        </div>
       )}
 
-      <footer className="py-8 text-center text-gray-500 text-xs border-t border-gray-800 bg-black uppercase tracking-[0.2em]">© 2026 - EVENTOS SOÑADOS</footer>
-      
+      <footer className="py-10 text-center text-gray-400 text-[10px] font-bold uppercase tracking-[0.5em]">
+        © 2026 PANDA DJ • Buenos Aires
+      </footer>
+
       <style jsx global>{`
-        :root { --font-titulo: ${fontTitulo.style.fontFamily}; --font-cuerpo: ${fontCuerpo.style.fontFamily}; }
-        .font-titulo { font-family: var(--font-titulo); }
-        .font-cuerpo { font-family: var(--font-cuerpo); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+        :root {
+          --font-titulo: ${fontTitulo.style.fontFamily};
+          --font-cuerpo: ${fontCuerpo.style.fontFamily};
+        }
+        @keyframes modalIn {
+          from { opacity: 0; transform: translateY(30px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-modal-in {
+          animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.5s ease-out forwards;
+        }
       `}</style>
     </div>
   );
