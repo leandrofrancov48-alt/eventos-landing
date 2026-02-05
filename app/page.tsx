@@ -73,11 +73,9 @@ export default function LandingPandaDJ() {
         .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
-        @keyframes bounceSlow { 0%, 100% { transform: translateY(-3%); } 50% { transform: translateY(3%); } }
-        .animate-bounce-slow { animation: bounceSlow 3s infinite ease-in-out; }
       `}} />
 
-      {/* HEADER */}
+      {/* HEADER / NAV */}
       <nav className="w-full px-4 py-4 md:px-8 md:py-6 flex justify-between items-center z-40 shrink-0">
         
         {/* IZQUIERDA: PANDA DJ */}
@@ -91,12 +89,12 @@ export default function LandingPandaDJ() {
           </div>
         </Link>
 
-        {/* CENTRO: LOGO NUEVO "HACEMOS TU EVENTO" (Sin fondo, solo imagen) */}
+        {/* CENTRO (SOLO PC): LOGO NUEVO */}
+        {/* El "hidden md:block" hace que desaparezca en celular y aparezca en PC */}
         <button 
-          className="mx-2 md:mx-4 transition-transform duration-300 hover:scale-110 cursor-default"
+          className="hidden md:block mx-4 transition-transform duration-300 hover:scale-110 cursor-default"
         >
-          {/* Ajusté un poco el tamaño para que se luzca más al no tener borde */}
-          <div className="relative h-14 w-28 md:h-20 md:w-48">
+          <div className="relative h-32 w-72">
             <Image 
               src="/image_4.png" 
               alt="Hacemos Tu Evento" 
@@ -126,13 +124,27 @@ export default function LandingPandaDJ() {
       {/* CONTENIDO CENTRAL */}
       <main className="flex-grow flex flex-col items-center justify-center px-4 w-full max-w-4xl mx-auto gap-2 md:gap-6">
         
+        {/* CENTRO (SOLO CELULAR): LOGO NUEVO "BAJADO" */}
+        {/* El "block md:hidden" hace que aparezca en celular y desaparezca en PC */}
+        {/* Acá podés controlar el tamaño solo para celular (h-24 w-52) */}
+        <div className="block md:hidden mb-2 animate-fade-in">
+           <div className="relative h-28 w-64 mx-auto hover:scale-105 transition-transform">
+            <Image 
+              src="/image_4.png" 
+              alt="Hacemos Tu Evento" 
+              fill 
+              className="object-contain" 
+            />
+          </div>
+        </div>
+
         {/* TITULO */}
         <h1 className={`${fontTitulo.className} text-center leading-[0.9] text-black shrink-0 flex flex-col items-center mt-2`}>
           <span className="block text-4xl md:text-6xl lg:text-7xl mb-2 drop-shadow-[2px_2px_0px_rgba(255,255,255,1)]">
             DESPREOCUPATE
           </span>
           <span className="whitespace-nowrap relative inline-block bg-black text-[#cec1ad] text-2xl md:text-5xl lg:text-6xl px-4 py-2 md:px-8 md:py-3 -rotate-1 transform border-[3px] border-black shadow-[5px_5px_0px_0px_#9CA3AF]">
-            NOSOTROS ARMAMOS TU EVENTO
+            NOSOTROS ARMAMOS TU FIESTA
           </span>
         </h1>
 
@@ -200,7 +212,7 @@ export default function LandingPandaDJ() {
         <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">Buenos Aires • 2026</p>
       </footer>
 
-      {/* MODAL */}
+      {/* MODAL (Sin cambios) */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setIsModalOpen(false)} />
