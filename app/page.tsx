@@ -4,63 +4,56 @@ import localFont from 'next/font/local';
 import Image from 'next/image';
 import Link from 'next/link';
 
-// Fuentes personalizadas (asegúrate de que los archivos estén en la carpeta /fonts)
+// Fuentes personalizadas
 const fontTitulo = localFont({
-  src: './fonts/YellowBalloon200-Regular.ttf', // Fuente para títulos
+  src: './fonts/YellowBalloon200-Regular.ttf',
   display: 'swap',
 });
 
 const fontCuerpo = localFont({
-  src: './fonts/YellowBalloonW00Regular.ttf', // Fuente para el cuerpo del texto
+  src: './fonts/YellowBalloonW00Regular.ttf',
   display: 'swap',
 });
 
 export default function LandingPandaDJ() {
-  // Estados para el modal, el formulario y el tipo de evento seleccionado
   const [evento, setEvento] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [phone, setPhone] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [enviado, setEnviado] = useState(false);
 
-  // URL del Webhook de Make para enviar los datos del formulario
+  // URL del Webhook de Make
   const WEBHOOK_URL = "https://hook.us2.make.com/r30c8wlriemn1hypqgu5v9o7c1ja53zh";
 
-  // Función para abrir el modal con el tipo de evento seleccionado
   const abrirModal = (tipo: string) => {
     setEvento(tipo);
     setIsModalOpen(true);
-    setEnviado(false); // Resetea el estado de enviado
+    setEnviado(false);
   };
 
-  // Función para formatear el número de teléfono (solo dígitos)
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/\D/g, '');
     setPhone(input);
   };
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEnviando(true);
     const formData = new FormData(e.currentTarget);
-    // Prepara los datos para enviar
     const data = {
       nombre: formData.get('nombre'),
       whatsapp: `+549${phone}`,
       evento: evento,
-      fecha: "'" + new Date().toLocaleString('es-AR'), // Fuerza la fecha como texto para Sheets
+      fecha: "'" + new Date().toLocaleString('es-AR'),
     };
 
     try {
-      // Envía los datos al Webhook
       await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      setEnviado(true); // Muestra mensaje de éxito
-      // Cierra el modal después de 3 segundos
+      setEnviado(true);
       setTimeout(() => {
         setIsModalOpen(false);
         setPhone("");
@@ -68,15 +61,13 @@ export default function LandingPandaDJ() {
     } catch (error) {
       alert("Error al enviar.");
     } finally {
-      setEnviando(false); // Resetea estado de envío
+      setEnviando(false);
     }
   };
 
   return (
-    // Contenedor principal con fondo beige, fuente de cuerpo y estructura flex
     <div className={`${fontCuerpo.className} h-screen w-full bg-[#cec1ad] text-black overflow-hidden flex flex-col justify-between`}>
       
-      {/* Estilos CSS globales para animaciones */}
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .animate-slide-up { animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
@@ -86,10 +77,10 @@ export default function LandingPandaDJ() {
         .animate-bounce-slow { animation: bounceSlow 3s infinite ease-in-out; }
       `}} />
 
-      {/* HEADER / BARRA DE NAVEGACIÓN SUPERIOR */}
-      <nav className="w-full px-4 py-4 md:px-8 md:py-6 flex justify-between items-start z-40 shrink-0">
+      {/* HEADER */}
+      <nav className="w-full px-4 py-4 md:px-8 md:py-6 flex justify-between items-center z-40 shrink-0">
         
-        {/* LOGO PANDA DJ (Link Izquierda) */}
+        {/* IZQUIERDA: PANDA DJ */}
         <Link 
           href="https://www.instagram.com/sebasubia/"
           target="_blank"
@@ -100,14 +91,14 @@ export default function LandingPandaDJ() {
           </div>
         </Link>
 
-        {/* NUEVO LOGO CENTRAL: HACEMOS TU EVENTO */}
+        {/* CENTRO: LOGO NUEVO "HACEMOS TU EVENTO" (Sin fondo, solo imagen) */}
         <button 
-          className="bg-white border-[2px] border-black px-2 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all cursor-default block mx-2 md:mx-4 self-center"
-          // Este botón NO tiene onClick ni href, por ahora es solo decorativo.
+          className="mx-2 md:mx-4 transition-transform duration-300 hover:scale-110 cursor-default"
         >
-          <div className="relative h-10 w-24 md:h-14 md:w-36">
+          {/* Ajusté un poco el tamaño para que se luzca más al no tener borde */}
+          <div className="relative h-14 w-28 md:h-20 md:w-48">
             <Image 
-              src="/image_4.png" // Ruta a tu nueva imagen de logo central
+              src="/image_4.png" 
               alt="Hacemos Tu Evento" 
               fill 
               className="object-contain" 
@@ -115,7 +106,7 @@ export default function LandingPandaDJ() {
           </div>
         </button>
         
-        {/* LOGO DEBO SEGATTI (Link Derecha) */}
+        {/* DERECHA: DEBO SEGATTI */}
         <Link 
           href="https://www.instagram.com/debosegatti.dj?igsh=MTlkOW1kcXlyNnZtZw%3D%3D" 
           target="_blank"
@@ -132,10 +123,10 @@ export default function LandingPandaDJ() {
         </Link>
       </nav>
 
-      {/* CONTENIDO CENTRAL PRINCIPAL */}
+      {/* CONTENIDO CENTRAL */}
       <main className="flex-grow flex flex-col items-center justify-center px-4 w-full max-w-4xl mx-auto gap-2 md:gap-6">
         
-        {/* TÍTULO PRINCIPAL */}
+        {/* TITULO */}
         <h1 className={`${fontTitulo.className} text-center leading-[0.9] text-black shrink-0 flex flex-col items-center mt-2`}>
           <span className="block text-4xl md:text-6xl lg:text-7xl mb-2 drop-shadow-[2px_2px_0px_rgba(255,255,255,1)]">
             DESPREOCUPATE
@@ -145,10 +136,9 @@ export default function LandingPandaDJ() {
           </span>
         </h1>
 
-        {/* CONTENEDOR DE BOTONES DE SERVICIOS */}
+        {/* BOTONES */}
         <div className="flex flex-col gap-3 w-full max-w-2xl shrink-0 mt-2 px-2">
           
-          {/* 1. BOTÓN DESTACADO: SET DE DJ */}
           <button
             onClick={() => abrirModal("SET DE DJ")}
             className="w-full bg-white text-black text-2xl md:text-4xl font-black uppercase py-4 border-[3px] border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:bg-black hover:text-[#cec1ad] transition-all duration-200 text-center leading-none rotate-1"
@@ -156,7 +146,6 @@ export default function LandingPandaDJ() {
             SET DE DJ
           </button>
 
-          {/* 2. GRILLA DE 4 BOTONES SECUNDARIOS */}
           <div className="grid grid-cols-2 gap-3 w-full">
             {[
               { label: "EVENTOS PRIVADOS", rotate: "-rotate-1", smallText: false },
@@ -188,7 +177,7 @@ export default function LandingPandaDJ() {
 
         </div>
 
-        {/* BOTÓN DE SERVICIOS ADICIONALES */}
+        {/* SERVICIOS ADICIONALES */}
         <div className="mt-2 text-center max-w-lg">
           <button 
             onClick={() => abrirModal("SERVICIOS ADICIONALES")}
@@ -205,31 +194,26 @@ export default function LandingPandaDJ() {
 
       </main>
 
-      {/* FOOTER / PIE DE PÁGINA */}
+      {/* FOOTER */}
       <footer className="w-full py-2 text-center shrink-0">
         <p className={`${fontTitulo.className} text-xl md:text-2xl text-black/30`}>PANDA DJ & DEBO SEGATTI</p>
         <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-black/30">Buenos Aires • 2026</p>
       </footer>
 
-      {/* MODAL / FORMULARIO EMERGENTE */}
+      {/* MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
-          {/* Fondo oscuro con desenfoque */}
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={() => setIsModalOpen(false)} />
           
-          {/* Contenedor del modal */}
           <div className="relative bg-[#111] text-white w-full max-w-md rounded-3xl border-[4px] border-white shadow-[0px_0px_40px_rgba(255,255,255,0.2)] p-6 md:p-8 overflow-hidden animate-slide-up">
             
-            {/* Indicador "REC" (Animación de grabación) */}
             <div className="absolute top-6 left-6 flex items-center gap-2">
                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
                <span className="text-[8px] font-mono tracking-widest text-gray-400">REC</span>
             </div>
 
-            {/* Botón de cerrar modal (X) */}
             <button onClick={() => setIsModalOpen(false)} className="absolute top-4 right-6 text-2xl font-bold hover:text-red-500 transition-colors">×</button>
 
-            {/* Contenido del modal: Mensaje de éxito o formulario */}
             {enviado ? (
               <div className="text-center py-12">
                 <div className="text-5xl mb-4">🎚️</div>
@@ -240,15 +224,12 @@ export default function LandingPandaDJ() {
               <>
                 <div className="mt-6 mb-6 text-center">
                   <h2 className={`${fontTitulo.className} text-4xl mb-1 text-white tracking-wide`}>RESERVAR</h2>
-                  {/* Etiqueta con el tipo de evento seleccionado */}
                   <div className="inline-block bg-white text-black px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-sm transform -rotate-2">
                     {evento}
                   </div>
                 </div>
 
-                {/* Formulario de contacto */}
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Campo Nombre */}
                   <div className="space-y-1">
                     <label className="text-[8px] font-bold text-gray-500 tracking-[0.2em] uppercase ml-2">Nombre</label>
                     <input 
@@ -260,7 +241,6 @@ export default function LandingPandaDJ() {
                     />
                   </div>
                   
-                  {/* Campo WhatsApp con prefijo +54 9 */}
                   <div className="space-y-1">
                     <label className="text-[8px] font-bold text-gray-500 tracking-[0.2em] uppercase ml-2">WhatsApp</label>
                     <div className="flex items-center bg-[#222] border-[2px] border-[#333] focus-within:border-white rounded-xl overflow-hidden transition-colors">
@@ -278,7 +258,6 @@ export default function LandingPandaDJ() {
                     </div>
                   </div>
 
-                  {/* Botón de Enviar */}
                   <button 
                     type="submit" 
                     disabled={enviando} 
