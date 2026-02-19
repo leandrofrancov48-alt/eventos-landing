@@ -19,7 +19,7 @@ export default function RegistroIngreso() {
   const [enviado, setEnviado] = useState(false);
 
   // ACÁ VAS A PONER EL LINK DEL NUEVO WEBHOOK DE MAKE
-  const WEBHOOK_URL = "ACA_PONE_EL_NUEVO_LINK_DE_MAKE"; 
+  const WEBHOOK_URL = "https://hook.us2.make.com/wibmwo5tmoml0je1w9pe4ixecat8ja2w"; 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
