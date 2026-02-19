@@ -108,9 +108,20 @@ export default function RegistroIngreso() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">Fecha de Nacimiento</label>
-                <input name="fechaNacimiento" type="date" required className="w-full bg-[#f4f0ea] border-[2px] border-black focus:border-black focus:bg-white rounded-xl p-3 text-black font-bold outline-none transition-colors font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
-              </div>
+  <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">Fecha de Nacimiento</label>
+  <input 
+    name="fechaNacimiento" 
+    type="date" 
+    required 
+    onClick={(e) => {
+      // Este pequeño código fuerza a que se abra el calendario al hacer clic en cualquier lado
+      if ('showPicker' in e.currentTarget) {
+        e.currentTarget.showPicker();
+      }
+    }}
+    className="w-full bg-[#f4f0ea] border-[2px] border-black focus:border-black focus:bg-white rounded-xl p-3 text-black font-bold outline-none transition-colors font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] cursor-pointer" 
+  />
+</div>
 
               <div className="space-y-1">
                 <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">Celular</label>
