@@ -80,7 +80,7 @@ export default function LandingPandaDJ() {
         
         {/* IZQUIERDA: PANDA DJ */}
         <Link 
-          href="https://www.instagram.com/sebasubia/"
+          href="https://www.instagram.com/elpandadj?igsh=MWl4Y283cTRvNm04Zw=="
           target="_blank"
           className="bg-white border-[2px] border-black px-3 py-1 rounded-xl shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] rotate-[-1deg] hover:rotate-0 hover:scale-105 transition-all cursor-pointer block"
         >
