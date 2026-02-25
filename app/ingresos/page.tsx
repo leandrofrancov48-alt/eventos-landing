@@ -28,8 +28,13 @@ export default function RegistroIngreso() {
   useEffect(() => {
     const cargarEventos = async () => {
       try {
-        const response = await fetch(CSV_URL);
+        // TRUCO: Le agregamos la hora actual al link para que el navegador piense que es un link nuevo y no use caché
+        const urlFresca = `${CSV_URL}&t=${new Date().getTime()}`;
+        
+        // Le decimos explícitamente que NO guarde en caché (no-store)
+        const response = await fetch(urlFresca, { cache: 'no-store' });
         const text = await response.text();
+        
         // Separa por filas y saca los espacios vacíos
         const eventos = text.split('\n').map(e => e.trim()).filter(e => e.length > 0);
         setListaEventos(eventos);
