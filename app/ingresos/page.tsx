@@ -24,23 +24,18 @@ export default function RegistroIngreso() {
   // 2. LINK DEL WEBHOOK DE MAKE (Ingresos)
   const WEBHOOK_URL = "https://hook.us2.make.com/wibmwo5tmoml0je1w9pe4ixecat8ja2w"; 
 
-  // Esta función lee el Excel apenas carga la página
+  // Esta función lee el Excel apenas carga la página (con el truco anti-caché)
   useEffect(() => {
     const cargarEventos = async () => {
       try {
-        // TRUCO: Le agregamos la hora actual al link para que el navegador piense que es un link nuevo y no use caché
         const urlFresca = `${CSV_URL}&t=${new Date().getTime()}`;
-        
-        // Le decimos explícitamente que NO guarde en caché (no-store)
         const response = await fetch(urlFresca, { cache: 'no-store' });
         const text = await response.text();
-        
-        // Separa por filas y saca los espacios vacíos
         const eventos = text.split('\n').map(e => e.trim()).filter(e => e.length > 0);
         setListaEventos(eventos);
       } catch (error) {
         console.error("Error cargando eventos", error);
-        setListaEventos(["Evento General"]); // Fallback por si falla el Excel
+        setListaEventos(["Evento General"]);
       }
     };
     cargarEventos();
@@ -51,14 +46,18 @@ export default function RegistroIngreso() {
     setEnviando(true);
     const formData = new FormData(e.currentTarget);
     
+    // Si el usuario no pone Instagram, mandamos un guión o texto vacío para que no quede raro en el Excel
+    const instagramIngresado = formData.get('instagram')?.toString().trim();
+    
     const data = {
-      eventoSeleccionado: formData.get('evento'), // Capturamos qué evento eligió
+      eventoSeleccionado: formData.get('evento'),
       nombre: formData.get('nombre'),
       apellido: formData.get('apellido'),
       dni: formData.get('dni'),
       fechaNacimiento: formData.get('fechaNacimiento'),
       celular: formData.get('celular'),
       email: formData.get('email'),
+      instagram: instagramIngresado ? instagramIngresado : "-", // ACÁ AGREGAMOS EL INSTAGRAM
       fechaRegistro: "'" + new Date().toLocaleString('es-AR'),
     };
 
@@ -113,7 +112,6 @@ export default function RegistroIngreso() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               
-              {/* CAMPO: SELECCIÓN DE EVENTO */}
               <div className="space-y-1 mb-2">
                 <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">¿A qué evento asistís?</label>
                 <div className="relative">
@@ -160,14 +158,21 @@ export default function RegistroIngreso() {
                 />
               </div>
 
-              <div className="space-y-1">
-                <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">Celular</label>
-                <input name="celular" type="tel" placeholder="Ej: 11 1234 5678" required className="w-full bg-[#f4f0ea] border-[2px] border-black focus:border-black focus:bg-white rounded-xl p-3 text-black font-bold outline-none transition-colors font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">Celular</label>
+                  <input name="celular" type="tel" placeholder="Ej: 11 1234 5678" required className="w-full bg-[#f4f0ea] border-[2px] border-black focus:border-black focus:bg-white rounded-xl p-3 text-black font-bold outline-none transition-colors font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">E-mail</label>
+                  <input name="email" type="email" placeholder="tu@email.com" required className="w-full bg-[#f4f0ea] border-[2px] border-black focus:border-black focus:bg-white rounded-xl p-3 text-black font-bold outline-none transition-colors font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+                </div>
               </div>
 
+              {/* NUEVO CAMPO: INSTAGRAM */}
               <div className="space-y-1">
-                <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">E-mail</label>
-                <input name="email" type="email" placeholder="tu@email.com" required className="w-full bg-[#f4f0ea] border-[2px] border-black focus:border-black focus:bg-white rounded-xl p-3 text-black font-bold outline-none transition-colors font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
+                <label className="text-[10px] font-black text-black tracking-[0.1em] uppercase ml-1">Instagram (Opcional)</label>
+                <input name="instagram" type="text" placeholder="@tu_usuario" className="w-full bg-[#f4f0ea] border-[2px] border-black focus:border-black focus:bg-white rounded-xl p-3 text-black font-bold outline-none transition-colors font-mono text-sm shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]" />
               </div>
 
               <button 
